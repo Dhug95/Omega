@@ -1,0 +1,6 @@
+<h2><%= @property.titolo %></h2>
+<p><%= @property.descrizione %></p>
+<p><%= @property.prezzo %>€</p>
+
+<%= link_to "Index", properties_path %>
+<%= link_to "Modifica", edit_property_path(@property) %>

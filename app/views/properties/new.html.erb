@@ -1,0 +1,21 @@
+<h1>Crea Inserzione</h1>
+<%= form_for :property, url:properties_path do |p| %>
+    <p>
+        <%= p.label :titolo %><br>
+        <%= p.text_field :titolo %><br>
+    </p>
+
+    <p>
+        <%= p.label :descrizione %><br>
+        <%= p.text_area :descrizione %>
+    </p>
+
+    <p>
+        <%= p.label :prezzo %><br>
+        <%= p.text_field :prezzo %><br>
+    </p>
+
+    <p>
+        <%= p.submit %>
+    </p>
+<% end %>

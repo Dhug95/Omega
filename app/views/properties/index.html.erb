@@ -1,0 +1,8 @@
+<h1>Inserzioni</h1>
+<% @properties.each do |p| %>
+    <h3><%= p.titolo %></h3>
+    <p><%= p.descrizione %></p>
+    <p><%= p.prezzo %> €</p>
+    <%= link_to "Vedi", property_path(p) %>
+<hr>
+<% end %>
