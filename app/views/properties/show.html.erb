@@ -2,5 +2,10 @@
 <p><%= @property.descrizione %></p>
 <p><%= @property.prezzo %>€</p>
 
-<%= link_to "Index", properties_path %>
 <%= link_to "Modifica", edit_property_path(@property) %>
+<%= link_to "Elimina", property_path(@property),
+			method: :delete,
+		        data: {confirm: 'Are you sure?'},
+			:class => 'btn btn-danger' %>
+<hr>
+<%= link_to "Index", properties_path %><br/>
