@@ -1,4 +1,6 @@
 class PropertiesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  
   def index
     @properties= Property.all
   end
@@ -11,7 +13,7 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    @property = Property.new(property_params)
+    @property = current_user.properties.build(property_params)
     @property.save
     redirect_to @property
   end

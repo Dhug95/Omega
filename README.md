@@ -164,3 +164,79 @@ e aggiungiamo il seguente bottone nella view show dove si ritiene opportuno:
 			method: :delete,
 		        data: {confirm: 'Are you sure?'},
 			:class => 'btn btn-danger' %>
+___________________________________________________________________________________
+
+Devise (Sign Up + Log In)
+
+Apriamo il Gemfile e inseriamo la riga
+
+gem ‘devise’
+
+e lanciamo il comando
+
+> bundle install
+
+Successivamente diamo il comando
+
+>rails generate devise:install
+
+Appariranno delle istruzioni sul terminale. Eseguiamole, cioè apriamo il file config/environments/development.rb e inseriamo la seguente riga:
+
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+Poi apriamo il file app/views/layouts/application.html.erb e inseriamo nel body il seguente codice (sopra o sotto lo yield):
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+infine diamo il comando
+
+> rails generate devise:views
+
+Successivamente dobbiamo creare il Model per gli utenti, tramite devise. Diamo quindi i comandi
+
+> rails generate devise User
+> rake db:migrate
+
+Ora dobbiamo modificare i metodi new e create del Controller. In particolare dobbiamo sostituire le stringhe Property.new con la stringa ‘current_user.properties.build’
+Poi dobbiamo creare nel database le relazioni tra User e Property. Quindi diamo il comando
+
+> rails g migration add_user_id_to_properties user_id:integer
+> rake db:migrate
+
+poi apriamo il model User.rb e inseriamo la stringa
+
+has_many :properties
+
+e il model Property.rb e inseriamo la stringa
+
+belongs_to :user
+
+Poi inseriamo nel file  app/views/layouts/application.html.erb, all’inizio del body, il seguente codice:
+
+<% if user_signed_in? %>
+    <%= link_to “Esci”, destroy_user_session_path, method: :delete %>
+<% else %>
+    <%= link_to “Accedi”, new_user_session_path %>
+    <%= link_to “Registrati”,  new_user_registration_path %>
+<% end %>
+
+Se vogliamo che per inserire inserzioni o modificarle ecc… si deve essere loggati, allora all’inizio del Controller inseriamo il seguente codice:
+
+before_action :authenticate_user!, except: [:index, :show]
+
+Infine se vogliamo che solo chi ha inserito il prorio locale possa modificarlo o eliminarlo sostituiamo la show con il seguente codice:
+
+<h2><%= @property.titolo %></h2>
+<p><%= @property.descrizione %></p>
+<p><%= @property.prezzo %>€</p>
+Inserzione di: <%= @property.user.email %><hr>
+
+<% if @property.user == current_user %>
+	<%= link_to "Modifica", edit_property_path(@property) %>
+	<%= link_to "Elimina", property_path(@property),
+			method: :delete,
+		        data: {confirm: 'Are you sure?'},
+			:class => 'btn btn-danger' %>
+<% end %>
+<hr>
+<%= link_to "Index", properties_path %>

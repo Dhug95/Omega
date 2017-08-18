@@ -9,6 +9,16 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= link_to "Esci", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Accedi", new_user_session_path %>
+      <%= link_to "Registrati",  new_user_registration_path %>
+    <% end %>
+
     <%= yield %>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
   </body>
 </html>
