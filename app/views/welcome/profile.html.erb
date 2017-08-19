@@ -3,8 +3,13 @@
 <h2>Email: </h2>
 <p><%= @me.email %></p>
 
+<h2>Username: </h2>
+<p><%= @me.username %></p>
+
 <h2>Le tue inserzioni: </h2>
 <p><%= link_to "Link", properties_path %></p>
 
 <h2>Creato: </h2>
 <p><%= @me.created_at %></p>
+
+<p><%= link_to "Modifica info", edit_user_registration_path %></p>
