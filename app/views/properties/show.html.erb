@@ -1,7 +1,8 @@
-<h2><%= @property.titolo %></h2>
-<p><%= @property.descrizione %></p>
-<p><%= @property.prezzo %>€</p>
-Inserzione di: <%= @property.user.email %><hr>
+<h2>Titolo: <%= @property.titolo %></h2>
+<p>Descrizione: <%= @property.descrizione %></p>
+<p>Prezzo: <%= @property.prezzo %>€</p>
+<p>Città: <%= @property.city %></p>
+Inserzione di: <%= @property.user.username %><hr>
 
 <% if @property.user == current_user %>
 	<%= link_to "Modifica", edit_property_path(@property) %>

@@ -1,11 +1,9 @@
 <h1>Modifica Inserzione</h1>
 <%= form_for :property, url: property_path(@property), method: :patch do |p| %>
-
     <p>
         <%= p.label :titolo %><br>
         <%= p.text_field :titolo %>
     </p>
-
 
     <p>
         <%= p.label :descrizione %><br>
@@ -15,6 +13,11 @@
     <p>
         <%= p.label :prezzo %><br>
         <%= p.text_field :prezzo %>
+    </p>
+
+    <p>
+        <%= p.label :city %><br>
+        <%= p.text_field :city %>
     </p>
 
     <p>
