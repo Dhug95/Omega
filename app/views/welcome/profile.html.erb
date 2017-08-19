@@ -1,5 +1,8 @@
 <h1>Questo è il tuo profilo. Ecco le tue informazioni:</h1>
 
+<h2>Avatar: </h2>
+<p><%= image_tag @me.avatar.url(:small) %></p>
+
 <h2>Email: </h2>
 <p><%= @me.email %></p>
 
