@@ -9,7 +9,9 @@
   </head>
 
   <body>
+    <%= link_to "Ω", welcome_index_path %>
     <% if user_signed_in? %>
+    <%= link_to "Profilo", welcome_profile_path %>
       <%= link_to "Esci", destroy_user_session_path, method: :delete %>
     <% else %>
       <%= link_to "Accedi", new_user_session_path %>
@@ -20,5 +22,8 @@
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <hr/>
+    <p><a href="mailto:dabbraccio.francesco@gmail.com">Contattaci</a></p>
   </body>
 </html>

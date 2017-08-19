@@ -1,0 +1,10 @@
+<h1>Questo è il tuo profilo. Ecco le tue informazioni:</h1>
+
+<h2>Email: </h2>
+<p><%= @me.email %></p>
+
+<h2>Le tue inserzioni: </h2>
+<p><%= link_to "Link", properties_path %></p>
+
+<h2>Creato: </h2>
+<p><%= @me.created_at %></p>

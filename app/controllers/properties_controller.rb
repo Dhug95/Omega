@@ -1,8 +1,8 @@
 class PropertiesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  
+  before_action :authenticate_user!, except: [:show]
+
   def index
-    @properties= Property.all
+    @properties = current_user.properties
   end
 
   def show
