@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
   def index
+    @city = params[:city]
+    @properties = Property.where(:city => @city)
   end
 
   def profile
