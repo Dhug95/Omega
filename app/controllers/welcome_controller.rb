@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   def results
     @city = params[:city]
-    @properties = Property.where(:city => @city)
+    @properties = Property.where(:city => @city).page params[:page]
     @criteria = params[:ordine]
   end
 
