@@ -3,6 +3,16 @@
 <% if @properties.empty? %>
   <h3>Nessun risultato.</h3>
 <% else %>
+
+  <%= form_tag('/welcome/results', method: :get) do %>
+
+    <p>
+    <%= select_tag "ordine", options_for_select([['Titolo', 'titolo'], ['Prezzo', 'prezzo'], ['Più recenti', 'created_at DESC']]), include_blank: true %>
+    <%= hidden_field_tag(:city, @city) %>
+    <%= submit_tag("Ordina") %>
+
+  <% end %>
+
   <table>
     <tr>
       <td><h3>Titolo</h3></td>
@@ -11,7 +21,7 @@
       <td><h3>Città</h3></td>
       <td><h3>Vedi</h3></td>
     </tr>
-    <% @properties.each do |p| %>
+    <% @properties.order(@criteria).each do |p| %>
       <tr>
         <td><%= p.titolo %></td>
         <td><%= p.descrizione %></td>

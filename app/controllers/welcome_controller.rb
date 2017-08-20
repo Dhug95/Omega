@@ -5,6 +5,7 @@ class WelcomeController < ApplicationController
   def results
     @city = params[:city]
     @properties = Property.where(:city => @city)
+    @criteria = params[:ordine]
   end
 
   def profile
