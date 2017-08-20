@@ -1,5 +1,8 @@
 class WelcomeController < ApplicationController
   def index
+  end
+
+  def results
     @city = params[:city]
     @properties = Property.where(:city => @city)
   end

@@ -1,15 +1,7 @@
 <h1>Welcome!</h1>
 <p><h3>Buongiornissimo! Qui puoi cercare località.</h3></p>
-<%= form_tag("/welcome/index", method: :get) do %>
+<%= form_tag("/welcome/results", method: :get) do %>
   <%= label_tag(:city, "Inserisci la città:") %>
   <%= text_field_tag(:city) %>
   <%= submit_tag("Search") %>
-<% end %>
-
-<% @properties.each do |p| %>
-  <hr/>
-  <td><%= p.titolo %></td>
-  <td><%= p.descrizione %></td>
-  <td><%= p.prezzo %>€</td>
-  <hr/>
 <% end %>
