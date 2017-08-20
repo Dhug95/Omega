@@ -11,7 +11,8 @@
   <body>
     <%= link_to "Ω", welcome_index_path %>
     <% if user_signed_in? %>
-    <%= link_to "Profilo", welcome_profile_path %>
+      <%= link_to "Profilo", welcome_profile_path %>
+      <%= link_to "Mie inserzioni", properties_path %>
       <%= link_to "Esci", destroy_user_session_path, method: :delete %>
     <% else %>
       <%= link_to "Accedi", new_user_session_path %>
