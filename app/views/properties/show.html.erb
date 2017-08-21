@@ -2,7 +2,14 @@
 <p>Descrizione: <%= @property.descrizione %></p>
 <p>Prezzo: <%= @property.prezzo %>€</p>
 <p>Città: <%= @property.city %></p>
-Inserzione di: <%= @property.user.username %><hr>
+Inserzione di:
+<% if current_user.provider == nil %>
+	<%= @property.user.username %>
+<% else %>
+	<%= current_user.name %>
+<% end %>
+
+<hr>
 
 <% if @property.user == current_user %>
 	<%= link_to "Modifica", edit_property_path(@property) %>
