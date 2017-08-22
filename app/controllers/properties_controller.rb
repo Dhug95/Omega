@@ -21,6 +21,18 @@ class PropertiesController < ApplicationController
     redirect_to @property
   end
 
+  def follow
+    @property = Property.find(params[:id])
+    current_user.followings << @property.user
+    redirect_to @property
+  end
+
+  def unfollow
+    @property = Property.find(params[:id])
+    current_user.followings.delete(@property.user)
+    redirect_to @property
+  end
+
   def new
   end
 

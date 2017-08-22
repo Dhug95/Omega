@@ -1,0 +1,11 @@
+<h1>Following:</h1>
+
+<% if current_user.followings.empty? %>
+
+  <h3>Nessun risultato.</h3>
+
+<% else %>
+
+  <p/><%= render 'properties/list' %>
+
+<% end %>

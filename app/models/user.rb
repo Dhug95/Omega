@@ -8,6 +8,12 @@ class User < ApplicationRecord
   has_many :properties
   has_and_belongs_to_many :favourites, class_name: "Property", join_table: "favouriters_and_favourites"
 
+  has_and_belongs_to_many(:followings,
+    class_name: "User",
+    :join_table => "following_connections",
+    :foreign_key => "follower_id",
+    :association_foreign_key => "following_id")
+
   validates :username, uniqueness: true
 
   has_attached_file :avatar, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

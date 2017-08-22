@@ -46,4 +46,10 @@ Immagini:
 	<% else %>
 		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %><p/>
 	<% end %>
+
+	<% if current_user.followings.exists?(@property.user.id) %>
+		<%= link_to "Unfollow utente", unfollow_path(@property), method: :post %><p/>
+	<% else %>
+		<%= link_to "Follow utente", follow_path(@property), method: :post %><p/>
+	<% end %>
 <% end %>

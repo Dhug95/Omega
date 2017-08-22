@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822161647) do
+ActiveRecord::Schema.define(version: 20170822173618) do
 
   create_table "favouriters_and_favourites", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "property_id"
     t.index ["property_id"], name: "index_favouriters_and_favourites_on_property_id"
     t.index ["user_id"], name: "index_favouriters_and_favourites_on_user_id"
+  end
+
+  create_table "following_connections", id: false, force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "following_id", null: false
   end
 
   create_table "properties", force: :cascade do |t|
