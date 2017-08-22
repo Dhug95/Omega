@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822093045) do
+ActiveRecord::Schema.define(version: 20170822161647) do
 
   create_table "favouriters_and_favourites", id: false, force: :cascade do |t|
     t.integer "user_id"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20170822093045) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "city"
+    t.string "img1_file_name"
+    t.string "img1_content_type"
+    t.integer "img1_file_size"
+    t.datetime "img1_updated_at"
+    t.string "img2_file_name"
+    t.string "img2_content_type"
+    t.integer "img2_file_size"
+    t.datetime "img2_updated_at"
+    t.string "img3_file_name"
+    t.string "img3_content_type"
+    t.integer "img3_file_size"
+    t.datetime "img3_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

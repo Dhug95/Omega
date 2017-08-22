@@ -1,5 +1,7 @@
 <% @properties.each do |p| %>
   <hr>
+    <b>Anteprima:</b><br>
+    <%= image_tag p.img1.url(:thumb) %><br>
     <b>Titolo:</b> <%= p.titolo %><br>
     <b>Descrizione:</b> <%= p.descrizione %><br>
     <b>Prezzo:</b> <%= p.prezzo %>€<br>

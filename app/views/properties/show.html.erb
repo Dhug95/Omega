@@ -4,7 +4,20 @@
 <p>Città: <%= @property.city %></p>
 <p>Inserzione di: <%= @property.user.username %></p>
 
-<%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %><p/>
+Immagini:
+<% if @property.img1.present? %>
+  <%= image_tag @property.img1.url(:medium) %>
+<% end %>
+
+<% if @property.img2.present? %>
+  <%= image_tag @property.img2.url(:medium) %>
+<% end %>
+
+<% if @property.img3.present? %>
+  <%= image_tag @property.img3.url(:medium) %>
+<% end %>
+
+<p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
 
 <a class="twitter-share-button"
   href="https://twitter.com/share"
