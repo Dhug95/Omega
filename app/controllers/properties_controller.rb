@@ -9,6 +9,18 @@ class PropertiesController < ApplicationController
     @property = Property.find(params[:id])
   end
 
+  def add_to_f
+    @property = Property.find(params[:id])
+    current_user.favourites << @property
+    redirect_to @property
+  end
+
+  def remove_from_f
+    @property = Property.find(params[:id])
+    current_user.favourites.delete(@property)
+    redirect_to @property
+  end
+
   def new
   end
 

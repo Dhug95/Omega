@@ -1,0 +1,26 @@
+<h1>Inserzioni preferite:</h1>
+
+<% if @properties.empty? %>
+  <h3>Nessun risultato.</h3>
+<% else %>
+
+  <table>
+    <tr>
+      <td><h3>Titolo</h3></td>
+      <td><h3>Descrizione</h3></td>
+      <td><h3>Prezzo</h3></td>
+      <td><h3>Città</h3></td>
+      <td><h3>Vedi</h3></td>
+    </tr>
+    <% @properties.order(@criteria).each do |p| %>
+      <tr>
+        <td><%= p.titolo %></td>
+        <td><%= p.descrizione %></td>
+        <td><%= p.prezzo %>€</td>
+        <td><%= p.city %></td>
+        <td><%= link_to 'Link', property_path(p) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @properties %>
+<% end %>

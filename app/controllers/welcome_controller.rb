@@ -12,4 +12,9 @@ class WelcomeController < ApplicationController
     authenticate_user!
     @me = current_user
   end
+
+  def favourites
+    authenticate_user!
+    @properties = current_user.favourites.page params[:page]
+  end
 end

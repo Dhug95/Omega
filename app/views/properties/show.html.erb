@@ -31,4 +31,11 @@ Inserzione di:
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
 </a>
 
+<% if current_user.favourites.exists?(@property.id) %>
+	<br/><%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %>
+<% else %>
+	<br/><%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %>
+<% end %>
+
+
 <br/><%= link_to "Index", properties_path %>
