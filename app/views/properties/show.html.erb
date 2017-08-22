@@ -2,14 +2,11 @@
 <p>Descrizione: <%= @property.descrizione %></p>
 <p>Prezzo: <%= @property.prezzo %>€</p>
 <p>Città: <%= @property.city %></p>
-Inserzione di:
-<% if current_user.provider == nil %>
-	<%= @property.user.username %>
-<% else %>
-	<%= current_user.name %>
-<% end %>
+<p>Inserzione di: <%= @property.user.username %></p>
 
-<hr>
+<%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %>
+
+<hr/>
 
 <% if @property.user == current_user %>
 	<%= link_to "Modifica", edit_property_path(@property) %>
@@ -31,11 +28,12 @@ Inserzione di:
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
 </a>
 
-<% if current_user.favourites.exists?(@property.id) %>
-	<br/><%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %>
-<% else %>
-	<br/><%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %>
+<% if current_user != nil %>
+	<% if current_user.favourites.exists?(@property.id) %>
+		<br/><%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %>
+	<% else %>
+		<br/><%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %>
+	<% end %>
 <% end %>
-
 
 <br/><%= link_to "Index", properties_path %>
