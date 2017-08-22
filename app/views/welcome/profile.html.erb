@@ -2,22 +2,22 @@
 
 <h2>Avatar: </h2>
 <% if current_user.provider == nil %>
-  <p><%= image_tag @me.avatar.url(:small) %></p>
+  <%= image_tag @me.avatar.url(:medium) %>
 <% else %>
   <%= image_tag current_user.image %>
 <% end %>
 
 <h2>Email: </h2>
-<p><%= @me.email %></p>
+<%= @me.email %>
 
 <h2>Username: </h2>
 <% if current_user.provider == nil %>
-  <p><%= @me.username %></p>
+  <%= @me.username %>
 <% else %>
   <%= current_user.name %>
 <% end %>
 
 <h2>Creato: </h2>
-<p><%= @me.created_at %></p>
+<%= @me.created_at %><p/>
 
-<p><%= link_to "Modifica info", edit_user_registration_path %></p>
+<%= link_to "Modifica info", edit_user_registration_path %>
