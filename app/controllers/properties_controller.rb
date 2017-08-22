@@ -2,7 +2,7 @@ class PropertiesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
   def index
-    @properties = current_user.properties
+    @properties = current_user.properties.page params[:page]
   end
 
   def show

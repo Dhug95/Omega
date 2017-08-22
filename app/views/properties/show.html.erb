@@ -4,18 +4,7 @@
 <p>Città: <%= @property.city %></p>
 <p>Inserzione di: <%= @property.user.username %></p>
 
-<%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %>
-
-<hr/>
-
-<% if @property.user == current_user %>
-	<%= link_to "Modifica", edit_property_path(@property) %>
-	<%= link_to "Elimina", property_path(@property),
-			method: :delete,
-		        data: {confirm: 'Are you sure?'},
-			:class => 'btn btn-danger' %>
-<% end %>
-<hr>
+<%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %><p/>
 
 <a class="twitter-share-button"
   href="https://twitter.com/share"
@@ -28,12 +17,20 @@
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
 </a>
 
-<% if current_user != nil %>
-	<% if current_user.favourites.exists?(@property.id) %>
-		<br/><%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %>
-	<% else %>
-		<br/><%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %>
-	<% end %>
+<hr><h3>Link utili:</h3>
+
+<% if @property.user == current_user %>
+	<%= link_to "Modifica", edit_property_path(@property) %><p/>
+	<%= link_to "Elimina", property_path(@property),
+			method: :delete,
+		        data: {confirm: 'Are you sure?'},
+			:class => 'btn btn-danger' %><p/>
 <% end %>
 
-<br/><%= link_to "Index", properties_path %>
+<% if current_user != nil %>
+	<% if current_user.favourites.exists?(@property.id) %>
+		<%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %><p/>
+	<% else %>
+		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %><p/>
+	<% end %>
+<% end %>
