@@ -1,11 +1,5 @@
 <h1>Mie inserzioni:</h1>
-<%= link_to "+ Crea inserzione +", new_property_path %>
-<% @properties.each do |p| %>
-  <hr>
-    <h3>Titolo: <%= p.titolo %></h3>
-    <p>Descrizione: <%= p.descrizione %></p>
-    <p>Prezzo: <%= p.prezzo %> €</p>
-    <p>Città: <%= p.city %></p>
-    <%= link_to "Vedi", property_path(p) %>
-  <hr>
-<% end %>
+
+<%= link_to "+ Crea inserzione +", new_property_path %><p/>
+
+<p/><%= render 'list' %>

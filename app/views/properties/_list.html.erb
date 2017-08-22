@@ -1,0 +1,10 @@
+<% @properties.each do |p| %>
+  <hr>
+    <b>Titolo:</b> <%= p.titolo %><br>
+    <b>Descrizione:</b> <%= p.descrizione %><br>
+    <b>Prezzo:</b> <%= p.prezzo %>€<br>
+    <b>Città:</b> <%= p.city %><p/>
+    <%= link_to "Vedi", property_path(p) %>
+<% end %>
+
+<%= paginate @properties %>
