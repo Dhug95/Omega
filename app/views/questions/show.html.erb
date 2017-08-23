@@ -13,6 +13,8 @@
 <%= @question.body %>
 </p>
 
+<%= link_to 'Indietro', property_path(@property) %>
+
 <hr><h2>Risposte</h2>
 <% @question.answers.each do |answer| %>
   <p>
