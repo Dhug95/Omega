@@ -6,7 +6,13 @@
     <b>Descrizione:</b> <%= p.descrizione %><br>
     <b>Prezzo:</b> <%= p.prezzo %>€<br>
     <b>Città:</b> <%= p.city %><br/>
-    <b>Utente:</b> <%= p.user.username %><p/>
+    <b>Utente:</b>
+    <% if p.user.provider == nil %>
+      <%= p.user.username %>
+    <% else %>
+      <%= p.user.name %>
+    <% end %>
+    <p/>
     <%= link_to "Vedi", property_path(p) %>
 <% end %>
 

@@ -34,6 +34,12 @@
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
 </a></p>
 
+<p>
+<% if current_user != @property.user %>
+  <%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>
+<% end %>
+</p>
+
 <p><% if @property.user == current_user %>
 	<%= link_to "Modifica", edit_property_path(@property) %>
 	<%= link_to "Elimina", property_path(@property),
@@ -46,7 +52,7 @@
 <% @property.questions.each do |question| %>
   <p>
     <strong>• </strong>
-    <% if current_user.provider == nil %>
+      <% if question.user.provider == nil %>
         <%= question.user.username %>
     <% else %>
         <%= question.user.name %>

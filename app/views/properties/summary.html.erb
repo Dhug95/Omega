@@ -1,0 +1,9 @@
+<h1>Inserzioni dell'utente:
+<% if @property.user.provider == nil %>
+    <%= @property.user.username %></p>
+<% else %>
+    <%= @property.user.name %></p>
+<% end %>
+</h1>
+
+<%= render 'list' %>

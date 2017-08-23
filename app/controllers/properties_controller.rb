@@ -5,6 +5,11 @@ class PropertiesController < ApplicationController
     @properties = current_user.properties.page params[:page]
   end
 
+  def summary
+    @property = Property.find(params[:id])
+    @properties = Property.where(:user => @property.user).page params[:page]
+  end
+
   def show
     @property = Property.find(params[:id])
   end
