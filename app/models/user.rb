@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
-  has_many :properties
-  has_many :questions
-  
+  has_many :properties, dependent: :destroy
+  has_many :questions, dependent: :destroy
+
   has_and_belongs_to_many :favourites, class_name: "Property", join_table: "favouriters_and_favourites"
 
   has_and_belongs_to_many(:followings,

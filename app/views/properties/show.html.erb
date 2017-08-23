@@ -23,7 +23,7 @@
 
 <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
 
-<a class="twitter-share-button"
+<p><a class="twitter-share-button"
   href="https://twitter.com/share"
   data-size="large"
   data-text="Guarda questo locale: "
@@ -32,7 +32,15 @@
   data-via="twitterdev"
   data-related="twitterapi,twitter">
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
-</a>
+</a></p>
+
+<p><% if @property.user == current_user %>
+	<%= link_to "Modifica", edit_property_path(@property) %>
+	<%= link_to "Elimina", property_path(@property),
+			method: :delete,
+		        data: {confirm: 'Are you sure?'},
+			:class => 'btn btn-danger' %>
+<% end %></p>
 
 <hr><h2>Domande</h2>
 <% @property.questions.each do |question| %>
@@ -45,11 +53,18 @@
     <% end %>
     <br>
     <strong>- </strong><%= question.body %>
+    <br>
+    <%= link_to 'Vedi risposte', property_question_path(question) %>
+    <% if current_user == question.user %>
+      <%= link_to 'Elimina', [question.property, question],
+               method: :delete,
+               data: { confirm: 'Sei sicuro?' } %>
+    <% end %>
   </p>
 <% end %>
 
 <% if current_user != nil %>
-  <hr><h2>Fai una domanda:</h2>
+  <h2>Fai una domanda:</h2>
   <%= form_for([@property, @property.questions.build]) do |f| %>
     <p>
       <%= f.text_area :body %>
@@ -61,14 +76,6 @@
 <% end %>
 
 <hr><h3>Link utili:</h3>
-
-<% if @property.user == current_user %>
-	<%= link_to "Modifica", edit_property_path(@property) %><p/>
-	<%= link_to "Elimina", property_path(@property),
-			method: :delete,
-		        data: {confirm: 'Are you sure?'},
-			:class => 'btn btn-danger' %><p/>
-<% end %>
 
 <% if current_user != nil %>
 	<% if current_user.favourites.exists?(@property.id) %>
