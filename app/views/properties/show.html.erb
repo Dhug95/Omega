@@ -2,9 +2,13 @@
 <p>Descrizione: <%= @property.descrizione %></p>
 <p>Prezzo: <%= @property.prezzo %>€</p>
 <p>Città: <%= @property.city %></p>
-<p>Inserzione di: <%= @property.user.username %></p>
+<p>Inserzione di:
+<% if current_user.provider == nil %>
+    <%= @property.user.username %></p>
+<% else %>
+    <%= @property.user.name %></p>
+<% end %>
 
-Immagini:
 <% if @property.img1.present? %>
   <%= image_tag @property.img1.url(:medium) %>
 <% end %>
@@ -29,6 +33,32 @@ Immagini:
   data-related="twitterapi,twitter">
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
 </a>
+
+<hr><h2>Domande</h2>
+<% @property.questions.each do |question| %>
+  <p>
+    <strong>• </strong>
+    <% if current_user.provider == nil %>
+        <%= question.user.username %>
+    <% else %>
+        <%= question.user.name %>
+    <% end %>
+    <br>
+    <strong>- </strong><%= question.body %>
+  </p>
+<% end %>
+
+<% if current_user != nil %>
+  <hr><h2>Fai una domanda:</h2>
+  <%= form_for([@property, @property.questions.build]) do |f| %>
+    <p>
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      <%= f.submit "Invia" %>
+    </p>
+  <% end %>
+<% end %>
 
 <hr><h3>Link utili:</h3>
 

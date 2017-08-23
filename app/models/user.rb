@@ -6,6 +6,8 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :properties
+  has_many :questions
+  
   has_and_belongs_to_many :favourites, class_name: "Property", join_table: "favouriters_and_favourites"
 
   has_and_belongs_to_many(:followings,
