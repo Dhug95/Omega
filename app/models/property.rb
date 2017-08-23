@@ -1,7 +1,7 @@
 class Property < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :favouriters, class_name: "User", join_table: "favouriters_and_favourites"
-  paginates_per 2
+  paginates_per 3
 
   has_attached_file :img1, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :img1, content_type: /\Aimage\/.*\z/

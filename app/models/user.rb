@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :properties, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
   has_and_belongs_to_many :favourites, class_name: "Property", join_table: "favouriters_and_favourites"
 

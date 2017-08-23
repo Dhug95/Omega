@@ -2,9 +2,45 @@
 
 <p>
 <strong>Utente:</strong>
-<%= @question.user.username %>
+<% if @question.user.provider != nil %>
+  <%= @question.user.name %>
+<% else %>
+  <%= @question.user.username %>
+<% end %>
 </p>
 <p>
 <strong>Testo:</strong>
 <%= @question.body %>
 </p>
+
+<hr><h2>Risposte</h2>
+<% @question.answers.each do |answer| %>
+  <p>
+    <strong>• </strong>
+    <% if current_user.provider == nil %>
+        <%= answer.user.username %>
+    <% else %>
+        <%= answer.user.name %>
+    <% end %>
+    <br>
+    <strong>- </strong><%= answer.body %>
+    <br>
+    <% if current_user == @question.user %>
+      <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
+               method: :delete,
+               data: { confirm: 'Sei sicuro?' } %>
+    <% end %>
+  </p>
+<% end %>
+
+<% if current_user != nil %>
+  <h2>Aggiungi una risposta:</h2>
+  <%= form_for([@property, @question, @question.answers.build]) do |f| %>
+    <p>
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      <%= f.submit "Invia" %>
+    </p>
+  <% end %>
+<% end %>
