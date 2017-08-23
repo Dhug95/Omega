@@ -3,7 +3,7 @@
 <p>Prezzo: <%= @property.prezzo %>€</p>
 <p>Città: <%= @property.city %></p>
 <p>Inserzione di:
-<% if current_user.provider == nil %>
+<% if @property.user.provider == nil %>
     <%= @property.user.username %></p>
 <% else %>
     <%= @property.user.name %></p>
