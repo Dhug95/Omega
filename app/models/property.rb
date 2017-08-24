@@ -13,4 +13,5 @@ class Property < ApplicationRecord
   validates_attachment_content_type :img3, content_type: /\Aimage\/.*\z/
 
   has_many :questions, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 end

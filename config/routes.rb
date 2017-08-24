@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   root "welcome#index"
   resources :properties do
     resources :questions
+    resources :reviews
   end
 end
