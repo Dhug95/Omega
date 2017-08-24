@@ -12,6 +12,24 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    media(@property)
+  end
+
+  def media(property)
+    @counter = 0
+    @valutazione = 0
+    property.reviews.each do |r|
+      @valutazione = @valutazione + r.valutation
+      @counter = @counter +1
+    end
+    if @counter==0
+      @counter=1
+    end
+    @valutazione = @valutazione/@counter
+    if @valutazione.modulo(1)>0.5
+      @valutazione = @valutazione + 1
+    end
+    property.valutation = @valutazione
   end
 
   def add_to_f

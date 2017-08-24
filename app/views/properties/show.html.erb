@@ -1,6 +1,7 @@
 <h2>Titolo: <%= @property.titolo %></h2>
 <p>Descrizione: <%= @property.descrizione %></p>
 <p>Prezzo: <%= @property.prezzo %>€</p>
+<p>Valutazione: <%= @property.valutation %></p>
 <p>Città: <%= @property.city %></p>
 <p>Inserzione di:
 <% if @property.user.provider == nil %>
@@ -47,6 +48,57 @@
 		        data: {confirm: 'Are you sure?'},
 			:class => 'btn btn-danger' %>
 <% end %></p>
+
+<!-- ##########RECENSIONI########## -->
+
+<hr><h2>Recensioni</h2>
+<% @property.reviews.each do |review| %>
+
+  <p>
+    <% if current_user.provider == nil %>
+      <h2><%= review.user.username %></h2>
+      <%= image_tag review.user.avatar.url(:small) %>
+    <% else %>
+      <h2><%= review.user.name %></h2>
+      <%= image_tag review.user.image %>
+    <% end %>
+    <br>
+    Titolo: <%= review.title %>
+    <br><br>
+    Descrizione:
+    <p><%= review.body %></p>
+    Valutazione: <%= review.valutation %>
+  </p>
+  <% if current_user == review.user %>
+    <%= link_to 'Elimina', [review.property, review],
+            method: :delete,
+            data: { confirm: 'Sei sicuro?' } %>
+  <% end %>
+<% end %>
+
+<br><br>
+
+<% if current_user != nil %>
+  <h2>Scrivi una recensione:</h2>
+  <%= form_for([@property, @property.reviews.build]) do |f| %>
+    <p>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :body %><br>
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      Valutazione: <%= f.select :valutation, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']%>
+    </p>
+    <p>
+      <%= f.submit "Invia" %>
+    </p>
+  <% end %>
+<% end %>
+
+<!-- ##########DOMANDE########## -->
 
 <hr><h2>Domande</h2>
 <% @property.questions.each do |question| %>
