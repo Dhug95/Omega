@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   def create
    @property = Property.find(params[:property_id])
    @question = @property.questions.create(question_params)
+   @question.update_attribute(:valutation, 0)
    current_user.questions << @question
    redirect_to property_path(@property)
  end
@@ -16,6 +17,11 @@ class QuestionsController < ApplicationController
  def show
    @property = Property.find(params[:id])
    @question = @property.questions.find(params[:property_id])
+ end
+ 
+ def update
+   question = Question.find(params[:property_id])
+   question.update_attribute(:valutation, question.valutation + 1)
  end
 
  private

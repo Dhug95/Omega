@@ -101,25 +101,30 @@
 <!-- ##########DOMANDE########## -->
 
 <hr><h2>Domande</h2>
-<% @property.questions.each do |question| %>
-  <p>
-    <strong>• </strong>
+<ul>
+  <% @property.questions.each do |question| %>
+    <li>
       <% if question.user.provider == nil %>
         <%= question.user.username %>
-    <% else %>
+      <% else %>
         <%= question.user.name %>
-    <% end %>
-    <br>
-    <strong>- </strong><%= question.body %>
-    <br>
-    <%= link_to 'Vedi risposte', property_question_path(question) %>
-    <% if current_user == question.user %>
-      <%= link_to 'Elimina', [question.property, question],
-               method: :delete,
-               data: { confirm: 'Sei sicuro?' } %>
-    <% end %>
-  </p>
-<% end %>
+      <% end %><br>
+      <strong>- </strong><%= question.body %><br>
+      Valutazione: <%= question.valutation %>
+      
+      <%= form_for question, url: property_question_path(question), method: :patch do |f| %>
+        <%= f.submit "Valuta" %>
+      <% end %>
+      
+      <%= link_to 'Vedi risposte', property_question_path(question) %>
+      <% if current_user == question.user %>
+        <%= link_to 'Elimina', [question.property, question],
+                 method: :delete,
+                 data: { confirm: 'Sei sicuro?' } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
 
 <% if current_user != nil %>
   <h2>Fai una domanda:</h2>
