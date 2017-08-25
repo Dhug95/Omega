@@ -22,6 +22,30 @@
   <%= image_tag @property.img3.url(:medium) %>
 <% end %>
 
+
+<br />
+<br />
+<hr />
+
+<p>
+  <strong>Proprietà nelle vicinanze:</strong>
+  <% for p in @property.nearbys(10) %>
+  <li>
+    <%= link_to p.titolo, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
+  </li>
+  <% end %>
+</p>
+<p>
+
+
+<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x350&maptype=roadmap
+&markers=color:red%8Clabel:S%7C#{@property.latitude},#{@property.longitude}
+&key=AIzaSyB4bGTS4lIxDUcOJC8YZM3eAuyg-4JYPfQ "%>
+
+</p>
+
+<br />
+<hr />
 <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
 
 <p><a class="twitter-share-button"
@@ -111,11 +135,11 @@
       <% end %><br>
       <strong>- </strong><%= question.body %><br>
       Valutazione: <%= question.valutation %>
-      
+
       <%= form_for question, url: property_question_path(question), method: :patch do |f| %>
         <%= f.submit "Valuta" %>
       <% end %>
-      
+
       <%= link_to 'Vedi risposte', property_question_path(question) %>
       <% if current_user == question.user %>
         <%= link_to 'Elimina', [question.property, question],

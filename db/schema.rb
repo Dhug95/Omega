@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824195534) do
+ActiveRecord::Schema.define(version: 20170825114640) do
 
   create_table "answers", force: :cascade do |t|
     t.text "body"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20170824195534) do
     t.integer "img3_file_size"
     t.datetime "img3_updated_at"
     t.integer "valutation"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "questions", force: :cascade do |t|
