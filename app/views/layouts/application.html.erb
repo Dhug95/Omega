@@ -38,7 +38,7 @@
             <li><%= link_to "Following", welcome_following_path %></li>
             <li><%= link_to "Esci", destroy_user_session_path, method: :delete %></li>
           <% else %>
-          
+
             <li><%= link_to "Accedi", new_user_session_path %></li>
             <li><%= link_to "Registrati",  new_user_registration_path %></li>
           <% end %>
@@ -57,5 +57,10 @@
 
     <%= yield %>
   </div>
+  <footer class="footer">
+        <div class="container" >
+          <a href="mailto:dabbraccio.francesco@gmail.com" >Contattaci</a>
+        </div>
+  </footer>
 </body>
 </html>
