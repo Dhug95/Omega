@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/decioferreira/bootstrap-generators.git
+  revision: d6ce36fd8a9ae4d083b85bd1e08368c4b52e3bac
+  specs:
+    bootstrap-generators (3.3.4)
+      railties (>= 3.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -231,6 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-generators!
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
