@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   
   has_many :ratings
+  has_many :answer_rating
 
   has_and_belongs_to_many :favourites, class_name: "Property", join_table: "favouriters_and_favourites"
 

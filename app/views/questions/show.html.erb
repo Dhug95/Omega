@@ -1,3 +1,33 @@
+<script>
+  var set_stars = function(form_id, stars) {
+    for (i=1; i<=5; i++) {
+      if(i <= stars) {
+        $('#' + form_id + '_' + i).addClass('on');
+      } 
+      else {
+        $('#' + form_id + '_' + i).removeClass('on');
+      }
+    }
+  }  
+
+  $(function() {
+    $('.rating_star').click(function() {
+      var star = $(this);
+      var form_id = $(this).attr('data-form-id');
+      var stars = $(this).attr('data-stars');
+      set_stars(form_id,stars);
+        
+      $('#' + form_id + '_stars').val(stars);
+        
+      $.ajax({
+        type: "post",
+        url: $('#' + form_id).attr('action'),
+        data: $('#' + form_id).serialize()
+      });
+    });
+  });
+</script>
+
 <h3>Domande su: <%= @question.property.titolo %></h3>
 
 <p>
@@ -26,7 +56,29 @@
     <% end %>
     <br>
     <strong>- </strong><%= answer.body %>
-    <br>
+    
+    <ul class='rating'>
+      <% form_id = "answer_#{answer.id}_rating" %>
+        <%= form_for answer.answer_rating.last || answer.answer_rating.build, :html => {:id => "answer_#{answer.id}_rating" } do |f| %>
+          <%= f.hidden_field :answer_id %>
+          <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
+        <% end %>
+      
+        <% stars = 0 %>
+        <% answer.answer_rating.each do |r| %>
+          <% if current_user.answer_rating.find_by(:id => r.id) %>
+            <% stars = r.stars %>
+          <% end %>
+        <% end %>
+      
+        <% (1..5).each do |i| %>
+          <% if i <= stars %>
+            <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+          <% else %>
+            <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+          <% end %>
+      <% end %>
+    </ul><br>
     Valutazione: <%= answer.question.valutation %>
     <% if current_user == @question.user %>
       <%= link_to 'Elimina', [answer.question.property, answer.question, answer],

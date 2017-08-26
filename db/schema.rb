@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20170826180455) do
 
-ActiveRecord::Schema.define(version: 20170825190219) do
-
-
+  create_table "answer_ratings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "answer_id"
+    t.integer "stars"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_answer_ratings_on_answer_id"
+    t.index ["user_id"], name: "index_answer_ratings_on_user_id"
+  end
 
   create_table "answers", force: :cascade do |t|
     t.text "body"
