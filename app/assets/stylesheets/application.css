@@ -16,8 +16,8 @@
 
 .rating_star {
     background: url('star-off.png');
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     display: block;
     float: left;
 }

@@ -1,3 +1,33 @@
+<script>
+  var set_stars = function(form_id, stars) {
+    for (i=1; i<=5; i++) {
+      if(i <= stars) {
+        $('#' + form_id + '_' + i).addClass('on');
+      } 
+      else {
+        $('#' + form_id + '_' + i).removeClass('on');
+      }
+    }
+  }  
+
+  $(function() {
+    $('.rating_star').click(function() {
+      var star = $(this);
+      var form_id = $(this).attr('data-form-id');
+      var stars = $(this).attr('data-stars');
+      set_stars(form_id,stars);
+        
+      $('#' + form_id + '_stars').val(stars);
+        
+      $.ajax({
+        type: "post",
+        url: $('#' + form_id).attr('action'),
+        data: $('#' + form_id).serialize()
+      });
+    });
+  });
+</script>
+
 <h2>Titolo: <%= @property.titolo %></h2>
 <p>Descrizione: <%= @property.descrizione %></p>
 <p>Prezzo: <%= @property.prezzo %>€</p>
@@ -145,7 +175,7 @@
         
       <ul class='rating'>
         <% form_id = "question_#{question.id}_rating" %>
-        <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating", :class => "star_rating_form"} do |f| %>
+        <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
           <%= f.hidden_field :question_id %>
           <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
         <% end %>
@@ -164,7 +194,6 @@
             <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
           <% end %>
         <% end %>
-        
       </ul><br>
 
       <%= link_to 'Vedi risposte', property_question_path(question) %>
