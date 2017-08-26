@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'welcome/results'
   get 'welcome/favourites'
   get 'welcome/following'
+  get 'welcome/categories'
 
   post 'properties/:id/add_to_f', to: 'properties#add_to_f', as: 'add_to_f_property'
   post 'properties/:id/remove_from_f', to: 'properties#remove_from_f', as: 'remove_from_f_property'

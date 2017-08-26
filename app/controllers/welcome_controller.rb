@@ -8,6 +8,17 @@ class WelcomeController < ApplicationController
     @criteria = params[:ordine]
   end
 
+  def categories
+    @categories = params[:categories]
+    @ID_LOCALI = Array.new
+    Property.all.each do |p|
+      if (@categories - p.categories).empty?
+        @ID_LOCALI << p.id
+      end
+    end
+    @properties = Property.where(id: @ID_LOCALI).page params[:page]
+  end
+
   def profile
     authenticate_user!
     @me = current_user

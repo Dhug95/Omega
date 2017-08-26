@@ -1,11 +1,16 @@
 <h1>Welcome!</h1>
 <p><h3>Buongiornissimo! Qui puoi cercare località.</h3></p>
 <%= form_tag("/welcome/results", method: :get) do %>
-  <%= label_tag(:city, "Inserisci la città:") %>
+    <%= label_tag(:city, "Inserisci la città:") %>
   <%= text_field_tag(:city) %>
   <%= submit_tag("Search") %>
 <% end %>
-</body>
+
+<%= form_tag("/welcome/categories", method: :get) do %>
+  <%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %>
+  <%= submit_tag("Cerca per categorie") %>
+<% end %>
+
 <script>
 function initAutocomplete() {
 

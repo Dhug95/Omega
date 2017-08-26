@@ -39,6 +39,14 @@
     <%= p.file_field :img3 %><br>
   </p>
 
+  <hr>
+  <h3> Sezione categorie </h3>
+  <p>
+    <%= p.label "Preferenza fascia oraria" %><br>
+    <%= p.select :categories, [ ["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"] ], {:include_blank => "Seleziona una o più categorie"}, {:multiple => true}%>
+  </p>
+
+  <hr>
   <p>
     <%= p.submit %>
   </p>
