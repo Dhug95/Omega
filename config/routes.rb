@@ -22,4 +22,6 @@ Rails.application.routes.draw do
     end
     resources :reviews
   end
+  
+  resources :ratings
 end

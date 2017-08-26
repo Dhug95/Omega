@@ -15,7 +15,7 @@
  */
 
 .rating_star {
-    background: url('star-off.png') 0 0;
+    background: url('star-off.png');
     width: 16px;
     height: 16px;
     display: block;
@@ -24,5 +24,8 @@
 
 .on {
     background: url('star-on.png');
-    background-position: 0 16px; 
+}
+
+.rating {
+    padding-left: 0px;
 }
