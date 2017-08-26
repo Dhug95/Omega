@@ -29,3 +29,11 @@
 .rating {
     padding-left: 0px;
 }
+
+.rating_like {
+    background: url('like.png');
+    width: 10px;
+    height: 10px;
+    display: block;
+    float: left;
+}

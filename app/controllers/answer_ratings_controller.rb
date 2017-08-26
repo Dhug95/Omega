@@ -1,13 +1,25 @@
 class AnswerRatingsController < ApplicationController
   def create
     @answer = Answer.find(params[:answer_rating][:answer_id])
-    @rating = @answer.answer_rating.create(answer_rating_params)
+    @rating = @answer.answer_rating.create(:stars => 1)
+    valutation = @answer.valutation + 1
+    @answer.update_attribute(:valutation, valutation)
+    puts @answer.valutation
     current_user.answer_rating << @rating
   end
     
   def update
+    @answer = Answer.find(params[:answer_rating][:answer_id])
     rating = AnswerRating.find(params[:id])
-    rating.update_attribute(:stars, params[:answer_rating][:stars])
+    if rating.stars == 0
+      rating.update_attribute(:stars, 1)
+      valutation = @answer.valutation + 1
+    else
+      rating.update_attribute(:stars, 0)
+      valutation = @answer.valutation - 1
+    end
+    @answer.update_attribute(:valutation, valutation)
+    puts @answer.valutation
   end
   
   private

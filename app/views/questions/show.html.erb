@@ -1,21 +1,20 @@
 <script>
-  var set_stars = function(form_id, stars) {
-    for (i=1; i<=5; i++) {
-      if(i <= stars) {
-        $('#' + form_id + '_' + i).addClass('on');
-      } 
-      else {
-        $('#' + form_id + '_' + i).removeClass('on');
-      }
+  var set_stars = function(form_id,answer_id) {
+    var elem = $('#' + form_id + '_' + answer_id)
+    if (elem.hasClass('on')) {
+      elem.removeClass('on');
+    }
+    else {
+      elem.addClass('on');
     }
   }  
 
   $(function() {
     $('.rating_star').click(function() {
-      var star = $(this);
       var form_id = $(this).attr('data-form-id');
-      var stars = $(this).attr('data-stars');
-      set_stars(form_id,stars);
+      var answer_id = $(this).attr('data-answer-id');
+      set_stars(form_id,answer_id);
+      stars = 0;
         
       $('#' + form_id + '_stars').val(stars);
         
@@ -61,25 +60,24 @@
       <% form_id = "answer_#{answer.id}_rating" %>
         <%= form_for answer.answer_rating.last || answer.answer_rating.build, :html => {:id => "answer_#{answer.id}_rating" } do |f| %>
           <%= f.hidden_field :answer_id %>
-          <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
         <% end %>
       
-        <% stars = 0 %>
         <% answer.answer_rating.each do |r| %>
-          <% if current_user.answer_rating.find_by(:id => r.id) %>
-            <% stars = r.stars %>
+          <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
+          <% if current_answer %>
+            <% if current_answer.stars == 1 %>
+              <li class="rating_star on" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
+              <% break %>
+            <% else %>
+              <li class="rating_star" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
+              <% break %>
+            <% end %>
+          <% else %>
+            <li class="rating_star" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
           <% end %>
         <% end %>
-      
-        <% (1..5).each do |i| %>
-          <% if i <= stars %>
-            <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-          <% else %>
-            <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-          <% end %>
-      <% end %>
     </ul><br>
-    Valutazione: <%= answer.question.valutation %>
+    Valutazione: <%= answer.valutation %>
     <% if current_user == @question.user %>
       <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
                method: :delete,
