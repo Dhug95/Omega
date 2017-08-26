@@ -3,6 +3,14 @@
 <p>Prezzo: <%= @property.prezzo %>€</p>
 <p>Valutazione: <%= @property.valutation %></p>
 <p>Città: <%= @property.city %></p>
+
+<p>
+  Categorie:
+  <% @property.categories.each do |c| %>
+    <%= c %>
+  <% end %>
+</p>
+
 <p>Inserzione di:
 <% if @property.user.provider == nil %>
     <%= @property.user.username %></p>

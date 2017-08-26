@@ -3,9 +3,10 @@
 <%= form_tag("/welcome/results", method: :get) do %>
   <%= label_tag(:city, "Inserisci la città:") %>
   <%= text_field_tag(:city) %>
+  <%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %>
   <%= submit_tag("Search") %>
 <% end %>
-</body>
+
 <script>
 function initAutocomplete() {
 
