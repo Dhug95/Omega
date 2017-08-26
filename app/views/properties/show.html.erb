@@ -134,11 +134,17 @@
         <%= question.user.name %>
       <% end %><br>
       <strong>- </strong><%= question.body %><br>
-      Valutazione: <%= question.valutation %>
-
-      <%= form_for question, url: property_question_path(question), method: :patch do |f| %>
-        <%= f.submit "Valuta" %>
-      <% end %>
+      
+      <ul class='rating'>
+        <% form_id = "question_#{question.id}_rating" %>
+        <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating"} do |f| %>
+          <%= f.hidden_field :question_id %>
+          <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
+        <% end %>
+        <% (1..5).each do |i| %>
+          <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form.id}_#{i}" %>"></li>
+        <% end %>
+      </ul><br>
 
       <%= link_to 'Vedi risposte', property_question_path(question) %>
       <% if current_user == question.user %>
