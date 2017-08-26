@@ -3,8 +3,24 @@
 <%= form_tag("/welcome/results", method: :get) do %>
   <%= label_tag(:city, "Inserisci la città:") %>
   <%= text_field_tag(:city) %>
-  <%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %>
+
+  <hr>
+  <%= label_tag("Filtraggio per categorie:") %> <br><br>
+
+  <%= label_tag(:categories, "Tipologia di acquisto") %><br>
+  <%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+
+  <%= label_tag(:categories, "Tipologia di proprietà") %><br>
+  <%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+
+  <%= label_tag(:categories, "Preferenza fascia oraria") %><br>
+  <%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+
+  <%= label_tag(:categories, "Preferenza stanza") %><br>
+  <%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+
   <%= submit_tag("Search") %>
+  
 <% end %>
 
 <script>
