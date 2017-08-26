@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+.rating_star {
+    background: url('star-off.png');
+    width: 15px;
+    height: 15px;
+    display: block;
+    float: left;
+}
+
+.on {
+    background: url('star-on.png');
+}
+
+.rating {
+    padding-left: 0px;
+}

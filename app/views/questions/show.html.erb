@@ -28,7 +28,6 @@
     <strong>- </strong><%= answer.body %>
     <br>
     Valutazione: <%= answer.question.valutation %>
-    <br>
     <% if current_user == @question.user %>
       <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
                method: :delete,
