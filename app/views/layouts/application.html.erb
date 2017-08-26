@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="utf-8">
@@ -6,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
+  <style>
+    #contact {
+      float: right;
+      margin-right: 52px;
+    }
+  </style>
   <title>Starter Template for Bootstrap</title>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,6 +43,7 @@
             <li><%= link_to "Mie inserzioni", properties_path %></li>
             <li><%= link_to "Preferiti", welcome_favourites_path %></li>
             <li><%= link_to "Following", welcome_following_path %></li>
+            <li><%= link_to "PM's", conversations_path %></li>
             <li><%= link_to "Esci", destroy_user_session_path, method: :delete %></li>
           <% else %>
 
@@ -57,10 +65,12 @@
 
     <%= yield %>
   </div>
-  <footer class="footer">
-        <div class="container" >
-          <a href="mailto:dabbraccio.francesco@gmail.com" >Contattaci</a>
-        </div>
-  </footer>
+  <hr />
+
+  <div id="contact">
+      <a href="mailto:dabbraccio.francesco@gmail.com" >Contattaci</a>
+  </div>
+
+
 </body>
 </html>

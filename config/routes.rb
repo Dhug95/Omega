@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'properties/:id/follow', to: 'properties#follow', as: 'follow'
   post 'properties/:id/unfollow', to: 'properties#unfollow', as: 'unfollow'
 
+
   get 'properties/:id/summary', to: 'properties#summary', as: 'summary'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -21,5 +22,9 @@ Rails.application.routes.draw do
       resources :answers
     end
     resources :reviews
+  end
+
+  resources :conversations do
+    resources :messages
   end
 end

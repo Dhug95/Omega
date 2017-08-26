@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  acts_as_messageable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
@@ -9,7 +11,7 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
 
   has_many :answers, dependent: :destroy
-  
+
   has_many :reviews, dependent: :destroy
 
   has_and_belongs_to_many :favourites, class_name: "Property", join_table: "favouriters_and_favourites"
@@ -40,5 +42,13 @@ class User < ApplicationRecord
       user.name = auth.info.name   # assuming the user model has a name
       user.image = auth.info.image # assuming the user model has an image
     end
+  end
+
+  def mailboxer_email(object)
+    nil
+  end
+
+  def name
+    "User #{id}"
   end
 end
