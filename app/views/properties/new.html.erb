@@ -42,8 +42,23 @@
   <hr>
   <h3> Sezione categorie </h3>
   <p>
+    <%= p.label "Tipologia di acquisto" %><br>
+    <%= p.select :categories, [ ["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
+  </p>
+
+  <p>
+    <%= p.label "Tipologia di proprietà" %><br>
+    <%= p.select :categories, [ ["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
+  </p>
+
+  <p>
     <%= p.label "Preferenza fascia oraria" %><br>
-    <%= p.select :categories, [ ["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"] ], {:include_blank => "Seleziona una o più categorie"}, {:multiple => true}%>
+    <%= p.select :categories, [ ["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
+  </p>
+
+  <p>
+    <%= p.label "Preferenza stanza" %><br>
+    <%= p.select :categories, [ ["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
   </p>
 
   <hr>
