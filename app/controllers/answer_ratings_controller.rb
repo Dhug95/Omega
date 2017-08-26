@@ -6,6 +6,7 @@ class AnswerRatingsController < ApplicationController
     @answer.update_attribute(:valutation, valutation)
     puts @answer.valutation
     current_user.answer_rating << @rating
+    redirect_back(fallback_location: root_path)
   end
     
   def update
@@ -20,6 +21,7 @@ class AnswerRatingsController < ApplicationController
     end
     @answer.update_attribute(:valutation, valutation)
     puts @answer.valutation
+    redirect_back(fallback_location: root_path)
   end
   
   private
