@@ -4,19 +4,18 @@ class WelcomeController < ApplicationController
 
   def results
     @city = params[:city]
-    @properties = Property.where(:city => @city).page params[:page]
     @criteria = params[:ordine]
-  end
-
-  def categories
     @categories = params[:categories]
     @ID_LOCALI = Array.new
+    if @categories == nil
+      @categories = [""]
+    end
     Property.all.each do |p|
       if (@categories - p.categories).empty?
         @ID_LOCALI << p.id
       end
     end
-    @properties = Property.where(id: @ID_LOCALI).page params[:page]
+    @properties = Property.where("id in (?) and city = ?", @ID_LOCALI, @city).page params[:page]
   end
 
   def profile
