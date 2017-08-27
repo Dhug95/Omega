@@ -22,6 +22,9 @@ module NavigationHelpers
     when /^my profile page/
       '/welcome/profile'
 
+    when /^the login page/
+      '/users/sign_in'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
