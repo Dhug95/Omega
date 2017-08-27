@@ -260,8 +260,3 @@ end
 Given /^I am a registered user$/ do
   User.create!({:email => "dabbraccio.francesco@gmail.com", :password => "123456", :password_confirmation => "123456" })
 end
-
-Given /^I am logged in/ do
-  ApplicationController.allow_forgery_protection = false
-  app.post('/sign_in', {"user"=>{"Email"=>"dabbraccio.francesco@gmail.com", "Password"=>"123456"}})
-end
