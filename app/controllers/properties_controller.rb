@@ -20,7 +20,7 @@ class PropertiesController < ApplicationController
     @valutazione = 0
     property.reviews.each do |r|
       @valutazione = @valutazione + r.valutation
-      @counter = @counter +1
+      @counter = @counter + 1
     end
     if @counter==0
       @counter=1
@@ -84,7 +84,6 @@ class PropertiesController < ApplicationController
 
     redirect_to properties_path
   end
-
 
   private def property_params
     params.require(:property).permit(:titolo, :descrizione, :prezzo, :city, :img1, :img2, :img3, categories: [])

@@ -230,6 +230,25 @@
   <% end %>
 <% end %>
 
+<br>
+<ul class='correlated'>
+  <h4>Proprietà Correlate:</h4>
+  <% Property.where(categories: @property.categories).find_each do |p| %>
+    <% if p.id != @property.id %>
+      <li class='correlated_img'>
+        <% if p.img1.present? %>
+          <%= image_tag(p.img1.url,size: "80x80") %>
+        <% end %>
+      </li>
+      <li class='correlated_elem'><b><%= p.titolo %></b></li><br>
+      <li class='correlated_elem'><%= p.prezzo %></li><br>
+      <li class='correlated_elem'><%= link_to "Vedi", property_path(p) %></li>
+      <br class='clear'>
+    <% end %>
+  <% end %>
+</ul>
+<br><br>
+
 <hr><h3>Link utili:</h3>
 
 <% if current_user != nil %>

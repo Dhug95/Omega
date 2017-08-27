@@ -37,3 +37,23 @@
     display: block;
     float: left;
 }
+
+.correlated {
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+.correlated_elem {
+    margin-right: 20px;
+    float: left;
+}
+
+.correlated_img {
+    float:left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.clear {
+    clear: left;
+}
