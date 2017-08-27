@@ -3,7 +3,7 @@ Feature: Edit account
   So that I can change the info about me
   I want to edit my account
 
-Scenario: Login
+Scenario: Edit account
   Given I am a registered user
   When I am on the login page
   And I fill in "Email" with "dabbraccio.francesco@gmail.com"
