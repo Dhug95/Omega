@@ -171,30 +171,42 @@
       <% else %>
         <%= question.user.name %>
       <% end %><br>
-      <strong>-</strong><%= question.body %>
-        
-      <ul class='rating'>
-        <% form_id = "question_#{question.id}_rating" %>
-        <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
-          <%= f.hidden_field :question_id %>
-          <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
+      <strong>-</strong><%= question.body %><br>
+      
+      Valutazione media:
+      <% if question.ratings %>
+        <% rating_count = question.ratings.count() %>
+        <% if rating_count > 0 %>
+          <%= question.ratings.sum(:stars) / rating_count %>
+        <% else %>
+          0
         <% end %>
-        
-        <% stars = 0 %>
-        <% question.ratings.each do |r| %>
-          <% if current_user.ratings.find_by(:id => r.id) %>
-            <% stars = r.stars %>
+      <% end %>
+      
+      <% if question.user != current_user %>
+        <ul class='rating'>
+          <% form_id = "question_#{question.id}_rating" %>
+          <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
+            <%= f.hidden_field :question_id %>
+            <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
           <% end %>
-        <% end %>
-        
-        <% (1..5).each do |i| %>
-          <% if i <= stars %>
-            <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-          <% else %>
-            <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+          
+          <% stars = 0 %>
+          <% question.ratings.each do |r| %>
+            <% if current_user.ratings.find_by(:id => r.id) %>
+              <% stars = r.stars %>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul><br>
+          
+          <% (1..5).each do |i| %>
+            <% if i <= stars %>
+              <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+            <% else %>
+              <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+            <% end %>
+          <% end %>
+        </ul><br>
+      <% end %>
 
       <%= link_to 'Vedi risposte', property_question_path(question) %>
       <% if current_user == question.user %>

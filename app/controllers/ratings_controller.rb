@@ -7,7 +7,11 @@ class RatingsController < ApplicationController
     
     def update
       rating = Rating.find(params[:id])
-      rating.update_attribute(:stars, params[:rating][:stars])
+      if (rating.user_id != current_user.id)
+        create
+      else
+        rating.update_attribute(:stars, params[:rating][:stars])
+      end
     end
     
     private

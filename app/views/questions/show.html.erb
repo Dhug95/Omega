@@ -49,22 +49,25 @@
   <p>
     <strong>• </strong>
     <% if current_user.provider == nil %>
-        <%= answer.user.username %>
+        <b><%= answer.user.username %></b>
     <% else %>
-        <%= answer.user.name %>
+        <b><%= answer.user.name %></b>
     <% end %>
     <br>
-    <strong>- </strong><%= answer.body %>
+    <strong>- </strong><%= answer.body %><br>
+    Valutazione: <%= answer.valutation %>
     <% if answer.user != current_user %>
       <ul class='rating'>
         <% form_id = "answer_#{answer.id}_rating" %>
           <%= form_for answer.answer_rating.last || answer.answer_rating.build, :html => {:id => "answer_#{answer.id}_rating" } do |f| %>
             <%= f.hidden_field :answer_id %>
           <% end %>
-        
+          
+          <% cond = true %>
           <% answer.answer_rating.each do |r| %>
             <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
             <% if current_answer %>
+              <% cond = false %>
               <% if current_answer.stars == 1 %>
                 <li class="rating_star on" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
                 &nbsp;&nbsp;<i>Clicca per rimuovere un voto<i>
@@ -74,14 +77,15 @@
                 &nbsp;&nbsp;<i>Clicca per aggiungere un voto<i>
                 <% break %>
               <% end %>
-            <% else %>
-              <li class="rating_star" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
-              &nbsp;&nbsp;<i>Clicca per aggiungere un voto<i>
             <% end %>
+          <% end %>
+          
+          <% if cond %>
+            <li class="rating_star" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
+              &nbsp;&nbsp;<i>Clicca per aggiungere un voto<i>
           <% end %>
       </ul><br>
     <% end %>
-    Valutazione: <%= answer.valutation %>
     <% if current_user == @question.user || current_user == answer.user %>
       <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
                method: :delete,
