@@ -15,7 +15,7 @@ class WelcomeController < ApplicationController
         @ID_LOCALI << p.id
       end
     end
-    @properties = Property.where("id in (?) and city = ?", @ID_LOCALI, @city).page params[:page]
+    @properties = Property.where("id in (?) and city like ?", @ID_LOCALI, "%#{@city}%").page params[:page]
   end
 
   def profile
