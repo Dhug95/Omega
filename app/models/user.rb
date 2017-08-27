@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
 
   has_many :reviews, dependent: :destroy
-  
+
   has_many :ratings
   has_many :answer_rating
 
@@ -51,7 +51,4 @@ class User < ApplicationRecord
     nil
   end
 
-  def name
-    "User #{id}"
-  end
 end
