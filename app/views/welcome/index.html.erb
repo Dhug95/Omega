@@ -1,28 +1,52 @@
-<h1>Welcome!</h1>
-<p><h3>Buongiornissimo! Qui puoi cercare località.</h3></p>
+<center>
+<h1>Welcome!</h3>
+<h2>Buongiornissimo! Qui puoi cercare locali.</h2>
+<br/>
 <%= form_tag("/welcome/results", method: :get) do %>
-  <%= label_tag(:city, "Inserisci la città:") %>
-  <%= text_field_tag(:city) %>
+  <%= label_tag(:city, "Inserisci la località:") %>
+  <%= text_field_tag(:city, nil, required: true) %>
 
   <hr>
-  <%= label_tag("Filtraggio per categorie:") %> <br><br>
 
-  <%= label_tag(:categories, "Tipologia di acquisto") %><br>
-  <%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+  <p><%= label_tag("Filtraggio per categorie:") %></p>
 
-  <%= label_tag(:categories, "Tipologia di proprietà") %><br>
-  <%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+  <table>
+    <tr>
+      <th><%= label_tag(:categories, "Tipologia di acquisto") %></th>
+      <th><%= label_tag(:categories, "Tipologia di proprietà") %></th>
+      <th><%= label_tag(:categories, "Preferenza fascia oraria") %></th>
+      <th><%= label_tag(:categories, "Preferenza stanza") %></th>
+    </tr>
+    <tr>
+      <td>
+        <%= select_tag :categories, options_for_select(["Affitto", "Prenotazione"]),
+        include_blank: false, multiple: true %>
+     </td>
 
-  <%= label_tag(:categories, "Preferenza fascia oraria") %><br>
-  <%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+       <td>
+         <%= select_tag :categories, options_for_select(["Abitazione", "B&B",
+         "Casa Vacanza", "Attività Commerciale"]),
+         include_blank: false, multiple: true %>
+      </td>
 
-  <%= label_tag(:categories, "Preferenza stanza") %><br>
-  <%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
+      <td>
+        <%= select_tag :categories, options_for_select(["Mattina", "Pomeriggio", "Sera", "Più giorni"]),
+           include_blank: false, multiple: true %>
+      </td>
 
-  <%= submit_tag("Search") %>
+      <td>
+        <%= select_tag :categories, options_for_select(["Intera Casa", "Stanza Condivisa",
+          "Stanza Privata"]),
+           include_blank: false, multiple: true %>
+      </td>
+    </tr>
+  </table>
+  <br/><%= submit_tag("Search") %>
 
 <% end %>
-<hr />
+</center>
+
+<hr/>
 <h4>
   Proprietà in offerta:
 </h4>
@@ -61,7 +85,7 @@
   </tr>
 
 <% end %>
-<hr />
+<hr/>
 <script>
 function initAutocomplete() {
 
