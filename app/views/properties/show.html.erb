@@ -3,12 +3,12 @@
     for (i=1; i<=5; i++) {
       if(i <= stars) {
         $('#' + form_id + '_' + i).addClass('on');
-      } 
+      }
       else {
         $('#' + form_id + '_' + i).removeClass('on');
       }
     }
-  }  
+  }
 
   $(function() {
     $('.rating_star').click(function() {
@@ -16,9 +16,9 @@
       var form_id = $(this).attr('data-form-id');
       var stars = $(this).attr('data-stars');
       set_stars(form_id,stars);
-        
+
       $('#' + form_id + '_stars').val(stars);
-        
+
       $.ajax({
         type: "post",
         url: $('#' + form_id).attr('action'),
@@ -30,7 +30,12 @@
 
 <h2>Titolo: <%= @property.titolo %></h2>
 <p>Descrizione: <%= @property.descrizione %></p>
+
+<% if @property.offer == nil %>
 <p>Prezzo: <%= @property.prezzo %>€</p>
+<%else %>
+<p> <font color="red">Prezzo(Scontato): <%= @property.offer %>€ </font></p>
+<%end%>
 <p>Valutazione: <%= @property.valutation %></p>
 <p>Città: <%= @property.city %></p>
 
@@ -172,7 +177,7 @@
         <%= question.user.name %>
       <% end %><br>
       <strong>-</strong><%= question.body %><br>
-      
+
       Valutazione media:
       <% if question.ratings %>
         <% rating_count = question.ratings.count() %>
@@ -182,7 +187,7 @@
           0
         <% end %>
       <% end %>
-      
+
       <% if question.user != current_user %>
         <ul class='rating'>
           <% form_id = "question_#{question.id}_rating" %>
@@ -190,14 +195,14 @@
             <%= f.hidden_field :question_id %>
             <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
           <% end %>
-          
+
           <% stars = 0 %>
           <% question.ratings.each do |r| %>
             <% if current_user.ratings.find_by(:id => r.id) %>
               <% stars = r.stars %>
             <% end %>
           <% end %>
-          
+
           <% (1..5).each do |i| %>
             <% if i <= stars %>
               <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>

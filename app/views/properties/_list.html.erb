@@ -4,7 +4,12 @@
     <%= image_tag p.img1.url(:thumb) %><br>
     <b>Titolo:</b> <%= p.titolo %><br>
     <b>Descrizione:</b> <%= p.descrizione %><br>
+    <% if p.offer == nil %>
     <b>Prezzo:</b> <%= p.prezzo %>€<br>
+
+    <%else %>
+    <b><font color="red">Prezzo (Scontato):</b> <%= p.offer %>€ </font><br>
+    <%end%>
     <b>Città:</b> <%= p.city %><br/>
     <b>Utente:</b>
     <% if p.user.provider == nil %>

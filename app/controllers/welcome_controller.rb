@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
   def index
+    @properties = Property.all
+    @newest = Property.all.order(created_at: :desc)
   end
 
   def results
