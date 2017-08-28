@@ -12,6 +12,14 @@
       float: right;
       margin-right: 52px;
     }
+
+    .badge-notify{
+   background-color:red!important;
+   position:relative;
+   top: -50px;
+   left: 24px;
+
+  }
   </style>
   <title>Starter Template for Bootstrap</title>
 
@@ -43,8 +51,21 @@
             <li><%= link_to "Mie inserzioni", properties_path %></li>
             <li><%= link_to "Preferiti", welcome_favourites_path %></li>
             <li><%= link_to "Following", welcome_following_path %></li>
-            <li><%= link_to "PM's", conversations_path %></li>
+            <li>
+              <%= link_to conversations_path, class: "btn btn-default btn-lg btn-link" do %>
+                <i class="glyphicon glyphicon-comment ">
+                </i>
+              <% end %>
+              <% if current_user.unread_inbox_count != 0 %>
+                <span class="badge badge-notify small" >
+                  <%= current_user.unread_inbox_count %>
+                </span>
+
+              <% end %>
+            </li>
             <li><%= link_to "Esci", destroy_user_session_path, method: :delete %></li>
+
+
           <% else %>
 
             <li><%= link_to "Accedi", new_user_session_path %></li>
@@ -70,7 +91,6 @@
   <div id="contact">
       <a href="mailto:dabbraccio.francesco@gmail.com" >Contattaci</a>
   </div>
-
 
 </body>
 </html>
