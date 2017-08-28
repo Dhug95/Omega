@@ -30,7 +30,12 @@
 
 <h2>Titolo: <%= @property.titolo %></h2>
 <p>Descrizione: <%= @property.descrizione %></p>
+
+<% if @property.offer == nil %>
 <p>Prezzo: <%= @property.prezzo %>€</p>
+<%else %>
+<p> <font color="red">Prezzo(Scontato): <%= @property.offer %>€ </font></p>
+<%end%>
 <p>Valutazione: <%= @property.valutation %></p>
 <p>Città: <%= @property.city %></p>
 
