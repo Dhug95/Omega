@@ -200,6 +200,7 @@
           <% question.ratings.each do |r| %>
             <% if current_user.ratings.find_by(:id => r.id) %>
               <% stars = r.stars %>
+              <% break %>
             <% end %>
           <% end %>
 

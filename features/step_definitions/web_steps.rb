@@ -291,3 +291,13 @@ end
 And /^I should not see my last insertion$/ do
   Property.all.size = 0
 end
+
+Then /^I should see "([^"]*)" first$/ do |arg1|
+  @criteria = "created_at DESC"
+  @properties = Property.where(:city => "Rome, Italy").order(@criteria)
+  expect(@properties.first.titolo).to eq(arg1)
+end
+
+Then /^my property has GPS coordinates$/ do
+  Property.last.latitude != nil && Property.last.longitude != nil
+end
