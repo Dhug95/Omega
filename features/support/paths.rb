@@ -16,14 +16,20 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
-    when /^the sign up page/
+    when /^the sign up page$/
       '/users/sign_up'
 
-    when /^my profile page/
+    when /^my profile page$/
       '/welcome/profile'
 
-    when /^the login page/
+    when /^the login page$/
       '/users/sign_in'
+
+    when /^my insertions page$/
+      '/properties'
+
+    when /^my last insertion page$/
+      property_path(Property.last)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
