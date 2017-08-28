@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
   def index
+    @properties = Property.all
+    @newest = Property.all.order(created_at: :desc)
   end
 
   def results
@@ -15,7 +17,7 @@ class WelcomeController < ApplicationController
         @ID_LOCALI << p.id
       end
     end
-    @properties = Property.where("id in (?) and city like ?", @ID_LOCALI, "%#{@city}%").page params[:page]
+    @properties = Property.where("id in (?) and city like ?", @ID_LOCALI, "%#{@city}%").order(@criteria).page params[:page]
   end
 
   def profile

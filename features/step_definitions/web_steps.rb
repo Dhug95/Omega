@@ -281,7 +281,7 @@ When /^I create an insertion (.*)$/ do |title|
     And I fill in "Prezzo" with "150"
     And I fill in "address_city" with "Rome, Italy"
     And I press "Save Property"
-    Then I should see "Casa grande"
+    Then I should see #{title}
     And I should see "Molto grande"
     And I should see "150"
     And I should see "Rome, Italy"
@@ -290,4 +290,19 @@ end
 
 And /^I should not see my last insertion$/ do
   Property.all.size = 0
+end
+
+Then /^I should see "([^"]*)" first$/ do |arg1|
+  @criteria = "created_at DESC"
+  @properties = Property.where(:city => "Rome, Italy").order(@criteria)
+  expect(@properties.first.titolo).to eq(arg1)
+end
+
+Then /^my property has GPS coordinates$/ do
+  Property.last.latitude != nil && Property.last.longitude != nil
+end
+
+And /^I follow "([^"]*)" to the new window$/ do |link|
+  new_window = window_opened_by { click_link link }
+  switch_to_window new_window
 end

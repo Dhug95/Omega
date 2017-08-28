@@ -47,7 +47,46 @@
     <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
   </table>
 <% end %>
+<hr />
+<h4>
+  Proprietà in offerta:
+</h4>
 
+<% @properties.each do |p| %>
+  <tr>
+
+      <td>
+        <%= p.titolo%>
+        <%= image_tag p.img1.url(:thumb) %>
+        <%= link_to "Vedi", property_path(p) %>
+      </td>
+
+
+    <br />
+  </tr>
+<% end %>
+<hr />
+
+<h4>
+  Proprietà aggiunte ultimamente:
+</h4>
+
+
+<% @newest.each do |p| %>
+  <tr>
+
+      <td>
+        <%= p.titolo %>
+        <%= image_tag p.img1.url(:thumb) %>
+        <%= link_to "Vedi", property_path(p) %>
+      </td>
+
+
+    <br />
+  </tr>
+
+<% end %>
+<hr />
 <script>
   function initAutocomplete() {
     // Create the search box and link it to the UI element.

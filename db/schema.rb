@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170826223515) do
+ActiveRecord::Schema.define(version: 20170828153636) do
 
   create_table "answer_ratings", force: :cascade do |t|
     t.integer "user_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170826223515) do
     t.float "latitude"
     t.float "longitude"
     t.string "categories"
+    t.float "offer"
   end
 
   create_table "questions", force: :cascade do |t|
