@@ -11,6 +11,7 @@ class ConversationsController < ApplicationController
   def create
     recipient = User.find(params[:user_id])
     receipt = current_user.send_message(recipient, params[:body], params[:subject])
+    current_user.notify(recipient, "", nil, true, nil, false)
     redirect_to conversation_path(receipt.conversation)
   end
 
@@ -22,7 +23,7 @@ class ConversationsController < ApplicationController
     @conversation = current_user.mailbox.conversations.find(params[:id])
     @conversation.destroy
     respond_to do |format|
-      format.html { redirect_to conversations_url, notice: 'Conversation was successfully destroyed.' }
+      format.html { redirect_to conversations_url, notice: 'Messaggio correttamente eliminato!' }
       format.json { head :no_content }
     end
   end

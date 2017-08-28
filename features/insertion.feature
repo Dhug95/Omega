@@ -5,12 +5,7 @@ Feature: Insertion
 
 Scenario: Create insertion
   Given I am a registered user
-  When I am on the login page
-  And I fill in "Email" with "dabbraccio.francesco@gmail.com"
-  And I fill in "Password" with "123456"
-  And I press "Log in"
-  Then I am on the home page
-
+  And I log in
   When I follow "Mie inserzioni"
   And I follow "+ Crea inserzione +"
   And I fill in "Titolo" with "Casa grande"

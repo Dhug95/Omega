@@ -104,7 +104,7 @@ end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
-    page.should have_content(text)
+    expect(page).to have_content(text)
   else
     assert page.has_content?(text)
   end
@@ -114,7 +114,7 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
 
   if page.respond_to? :should
-    page.should have_xpath('//*', :text => regexp)
+    expect(page).to have_xpath('//*', :text => regexp)
   else
     assert page.has_xpath?('//*', :text => regexp)
   end
@@ -122,7 +122,7 @@ end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   if page.respond_to? :should
-    page.should have_no_content(text)
+    expect(page).to have_no_content(text)
   else
     assert page.has_no_content?(text)
   end
@@ -132,7 +132,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
 
   if page.respond_to? :should
-    page.should have_no_xpath('//*', :text => regexp)
+    expect(page).to have_no_xpath('//*', :text => regexp)
   else
     assert page.has_no_xpath?('//*', :text => regexp)
   end
@@ -179,9 +179,9 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
   if page.respond_to?(:should)
     if using_formtastic
       error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
-      error_paragraph.should have_content(error_message)
+      expect(error_paragraph).to have_content(error_message)
     else
-      page.should have_content("#{field.titlecase} #{error_message}")
+      expect(page).to have_content("#{field.titlecase} #{error_message}")
     end
   else
     if using_formtastic
@@ -209,7 +209,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   with_scope(parent) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
-      field_checked.should be_true
+      expect(field_checked).to be_true
     else
       assert field_checked
     end
@@ -220,7 +220,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
   with_scope(parent) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
-      field_checked.should be_false
+      expect(field_checked).to be_false
     else
       assert !field_checked
     end
@@ -230,7 +230,7 @@ end
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
-    current_path.should == path_to(page_name)
+    expect(current_path).to be == path_to(page_name)
   else
     assert_equal path_to(page_name), current_path
   end
@@ -258,5 +258,36 @@ And /^I should see the image$/ do
 end
 
 Given /^I am a registered user$/ do
-  User.create!({:email => "dabbraccio.francesco@gmail.com", :password => "123456", :password_confirmation => "123456" })
+  User.create!({:email => "dabbraccio.francesco@gmail.com", :username => "Dhug95", :password => "123456", :password_confirmation => "123456" })
+end
+
+When /^I log in$/ do
+  steps %Q{
+    Given I am on the login page
+    When I fill in "Email" with "dabbraccio.francesco@gmail.com"
+    And I fill in "Password" with "123456"
+    And I press "Log in"
+    Then I should be on the home page
+    And I should see "Esci"
+  }
+end
+
+When /^I create an insertion (.*)$/ do |title|
+  steps %Q{
+    When I follow "Mie inserzioni"
+    And I follow "+ Crea inserzione +"
+    And I fill in "Titolo" with #{title}
+    And I fill in "Descrizione" with "Molto grande"
+    And I fill in "Prezzo" with "150"
+    And I fill in "address_city" with "Rome, Italy"
+    And I press "Save Property"
+    Then I should see "Casa grande"
+    And I should see "Molto grande"
+    And I should see "150"
+    And I should see "Rome, Italy"
+  }
+end
+
+And /^I should not see my last insertion$/ do
+  Property.all.size = 0
 end
