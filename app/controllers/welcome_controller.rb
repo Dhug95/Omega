@@ -32,4 +32,6 @@ class WelcomeController < ApplicationController
     authenticate_user!
     @properties = Property.where(:user_id => current_user.followings).page params[:page]
   end
+
+
 end
