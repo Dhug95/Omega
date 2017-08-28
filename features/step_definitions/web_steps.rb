@@ -281,7 +281,7 @@ When /^I create an insertion (.*)$/ do |title|
     And I fill in "Prezzo" with "150"
     And I fill in "address_city" with "Rome, Italy"
     And I press "Save Property"
-    Then I should see "Casa grande"
+    Then I should see #{title}
     And I should see "Molto grande"
     And I should see "150"
     And I should see "Rome, Italy"
@@ -300,4 +300,9 @@ end
 
 Then /^my property has GPS coordinates$/ do
   Property.last.latitude != nil && Property.last.longitude != nil
+end
+
+And /^I follow "([^"]*)" to the new window$/ do |link|
+  new_window = window_opened_by { click_link link }
+  switch_to_window new_window
 end
