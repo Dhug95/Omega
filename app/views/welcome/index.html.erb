@@ -1,11 +1,11 @@
-<h1>Welcome!</h1>
-<p><h3>Buongiornissimo! Qui puoi cercare località.</h3></p>
+<h1>Welcome!</h3>
+<h2>Buongiornissimo! Qui puoi cercare locali.</h2>
+<br/>
 <%= form_tag("/welcome/results", method: :get) do %>
-  <%= label_tag(:city, "Inserisci la città:") %>
-  <%= text_field_tag(:city) %>
+  <%= label_tag(:city, "Inserisci la località:") %>
+  <%= text_field_tag(:city, nil, required: true) %>
 
   <hr>
-    <%= label_tag("Filtraggio per categorie:") %><br>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Tipologia di acquisto") %></th></tr>
       <tr><th><%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
@@ -26,6 +26,7 @@
     <%= submit_tag("Search") %>
 <% end %>
 
+
 <hr>
 <h4>Più valutati:</h4><br>
 <% Property.order(:valutation).limit(10).each do |p| %>
@@ -38,6 +39,7 @@
     <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
   </table>
 <% end %>
+
 <br class='clear'>
 <hr>
 
@@ -83,6 +85,7 @@
 <% end %>
 <br class='clear'>
 <hr />
+
 <script>
   function initAutocomplete() {
     // Create the search box and link it to the UI element.
