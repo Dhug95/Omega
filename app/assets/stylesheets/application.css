@@ -47,3 +47,15 @@
 .clear {
     clear: left;
 }
+
+#contact {
+    float: right;
+    margin-right: 52px;
+}
+
+.badge-notify{
+    background-color:red!important;
+    position:relative;
+    top: -50px;
+    left: 24px;
+}

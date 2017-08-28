@@ -55,19 +55,20 @@
     <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
   </table>
 <% end %>
+
 <br class='clear'>
 <hr>
 <h4>Proprietà in offerta:</h4>
 
-<% @properties.each do |p| %>
+<% @on_sale.each do |p| %>
   <table class='correlated' >
     <% if p.img1.present? %>
-      <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+      <tr><th><%= image_tag(p.img1.url(:thumb),size: "90x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
+    <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
   </table>
-  </tr>
 <% end %>
 <br class='clear'>
 <hr>
@@ -77,7 +78,7 @@
 <% @newest.each do |p| %>
   <table class='correlated' >
     <% if p.img1.present? %>
-      <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+      <tr><th><%= image_tag(p.img1.url(:thumb),size: "90x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
