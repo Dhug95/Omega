@@ -5,23 +5,28 @@
   <%= text_field_tag(:city) %>
 
   <hr>
-  <%= label_tag("Filtraggio per categorie:") %> <br><br>
-
-  <%= label_tag(:categories, "Tipologia di acquisto") %><br>
-  <%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
-
-  <%= label_tag(:categories, "Tipologia di proprietà") %><br>
-  <%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
-
-  <%= label_tag(:categories, "Preferenza fascia oraria") %><br>
-  <%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
-
-  <%= label_tag(:categories, "Preferenza stanza") %><br>
-  <%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %><br>
-
-  <%= submit_tag("Search") %>
+    <%= label_tag("Filtraggio per categorie:") %><br>
+    <table class='correlated'>
+      <tr><th><%= label_tag(:categories, "Tipologia di acquisto") %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+    </table>
+    <table class='correlated'>
+      <tr><th><%= label_tag(:categories, "Tipologia di proprietà") %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+    </table>
+    <table class='correlated'>
+      <tr><th><%= label_tag(:categories, "Preferenza fascia oraria") %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+    </table>
+    <table class='correlated'>
+      <tr><th><%= label_tag(:categories, "Preferenza stanza") %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+    </table>
+    <br class='clear'><br>
+    <%= submit_tag("Search") %>
 <% end %>
 
+<hr>
 <h4>Più valutati:</h4><br>
 <% Property.order(:valutation).limit(10).each do |p| %>
   <table class='correlated' >
@@ -34,6 +39,7 @@
   </table>
 <% end %>
 <br class='clear'>
+<hr>
 
 <h4>Più recensiti:</h4>
 <% Review.group(:property_id).count().each do |r| %>
@@ -47,45 +53,35 @@
     <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
   </table>
 <% end %>
-<hr />
-<h4>
-  Proprietà in offerta:
-</h4>
+<br class='clear'>
+<hr>
+<h4>Proprietà in offerta:</h4>
 
 <% @properties.each do |p| %>
-  <tr>
-
-      <td>
-        <%= p.titolo%>
-        <%= image_tag p.img1.url(:thumb) %>
-        <%= link_to "Vedi", property_path(p) %>
-      </td>
-
-
-    <br />
+  <table class='correlated' >
+    <% if p.img1.present? %>
+      <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+    <% end %>
+    <tr><th><b><%= p.titolo %></b></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+  </table>
   </tr>
 <% end %>
-<hr />
+<br class='clear'>
+<hr>
 
-<h4>
-  Proprietà aggiunte ultimamente:
-</h4>
-
+<h4>Proprietà aggiunte ultimamente:</h4>
 
 <% @newest.each do |p| %>
-  <tr>
-
-      <td>
-        <%= p.titolo %>
-        <%= image_tag p.img1.url(:thumb) %>
-        <%= link_to "Vedi", property_path(p) %>
-      </td>
-
-
-    <br />
-  </tr>
-
+  <table class='correlated' >
+    <% if p.img1.present? %>
+      <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+    <% end %>
+    <tr><th><b><%= p.titolo %></b></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+  </table>
 <% end %>
+<br class='clear'>
 <hr />
 <script>
   function initAutocomplete() {
