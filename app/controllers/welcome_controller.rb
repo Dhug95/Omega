@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
   def index
     @properties = Property.all
     @newest = Property.all.order(created_at: :desc)
+    @on_sale = Property.where("offer != 0")
   end
 
   def results

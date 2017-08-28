@@ -51,13 +51,15 @@
   Proprietà in offerta:
 </h4>
 
-<% @properties.each do |p| %>
+<% @on_sale.each do |p| %>
   <tr>
 
       <td>
-        <%= p.titolo%>
-        <%= image_tag p.img1.url(:thumb) %>
+        <h3><%= p.titolo%></h3>
+        <%= image_tag p.img1.url(:thumb) %><br>
+        <del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font><br>
         <%= link_to "Vedi", property_path(p) %>
+
       </td>
 
 
@@ -75,8 +77,8 @@
   <tr>
 
       <td>
-        <%= p.titolo %>
-        <%= image_tag p.img1.url(:thumb) %>
+        <h3><%= p.titolo %></h3>
+        <%= image_tag p.img1.url(:thumb) %><br>
         <%= link_to "Vedi", property_path(p) %>
       </td>
 
