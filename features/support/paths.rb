@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^my last insertion page$/
       property_path(Property.last)
 
+    when /^conversations page$/
+      '/conversations'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

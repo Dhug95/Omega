@@ -9,7 +9,7 @@ Scenario: Order results
   And I create an insertion "Casa grande"
   And I create an insertion "Casa bella"
   When I am on the home page
-  And I fill in "Inserisci la città:" with "Rome, Italy"
+  And I fill in "Inserisci la località:" with "Rome, Italy"
   When I press "Search"
   Then I should see "Casa grande"
   And I should see "Casa bella"

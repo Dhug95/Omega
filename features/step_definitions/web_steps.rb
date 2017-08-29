@@ -54,7 +54,7 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
-  click_link(link)
+  first(:link, link).click
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
@@ -257,8 +257,12 @@ And /^I should see the image$/ do
   User.last.avatar_file_name != nil
 end
 
+And /^I should see the property image$/ do
+  Property.last.img1_file_name != nil
+end
+
 Given /^I am a registered user$/ do
-  User.create!({:email => "dabbraccio.francesco@gmail.com", :username => "Dhug95", :password => "123456", :password_confirmation => "123456" })
+  User.create!({:uid => 1, :email => "dabbraccio.francesco@gmail.com", :username => "Dhug95", :password => "123456", :password_confirmation => "123456" })
 end
 
 When /^I log in$/ do
@@ -305,4 +309,42 @@ end
 And /^I follow "([^"]*)" to the new window$/ do |link|
   new_window = window_opened_by { click_link link }
   switch_to_window new_window
+end
+
+Given /^there's another user$/ do
+  User.create!({:uid => 2, :email => "fmeater@gmail.com", :username => "MarioBiondi", :password => "123456", :password_confirmation => "123456" })
+end
+
+Given /^he logs in$/ do
+  steps %Q{
+    Given I am on the login page
+    When I fill in "Email" with "fmeater@gmail.com"
+    And I fill in "Password" with "123456"
+    And I press "Log in"
+    Then I should be on the home page
+    And I should see "Esci"
+  }
+end
+
+When /^he creates an insertion (.*)$/ do |title|
+  steps %Q{
+    When I follow "Mie inserzioni"
+    And I follow "+ Crea inserzione +"
+    And I fill in "Titolo" with #{title}
+    And I fill in "Descrizione" with "Molto grande"
+    And I fill in "Prezzo" with "150"
+    And I fill in "address_city" with "Rome, Italy"
+    And I press "Save Property"
+    Then I should see #{title}
+    And I should see "Molto grande"
+    And I should see "150"
+    And I should see "Rome, Italy"
+  }
+end
+
+When /^he logs out$/ do
+  steps %Q{
+    When I follow "Esci"
+    Then I should be on the home page
+  }
 end

@@ -8,13 +8,13 @@ Scenario: Find a Property
   And I log in
   When I create an insertion "Casa grande"
   Given I am on the home page
-  And I fill in "Inserisci la città:" with "Rome, Italy"
+  And I fill in "Inserisci la località:" with "Rome, Italy"
   When I press "Search"
   Then I should see "Casa grande"
 
 Scenario: Not find a property
   Given I am on the home page
-  When I fill in "Inserisci la città:" with "Toblerone"
+  When I fill in "Inserisci la località:" with "Toblerone"
   And I press "Search"
   Then I should not see "Toblerone"
   And I should see "Nessun risultato."
