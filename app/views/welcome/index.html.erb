@@ -2,41 +2,47 @@
 <h2>Buongiornissimo! Qui puoi cercare locali.</h2>
 <br/>
 <%= form_tag("/welcome/results", method: :get) do %>
-  <%= label_tag(:city, "Inserisci la località:") %>
-  <%= text_field_tag(:city, nil, required: true) %>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"> <%= label_tag(:city, "Inserisci la località:") %> </span>
+    <%= text_field_tag(:city, nil, required: true, :class => "form-control") %>
+  </div>
 
   <hr>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Tipologia di acquisto") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Tipologia di proprietà") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Preferenza fascia oraria") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Preferenza stanza") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <br class='clear'><br>
-    <%= submit_tag("Search") %>
+    <%= submit_tag("Search", :class => 'btn btn-default') %>
 <% end %>
 
 
 <hr>
 <h4>Più valutati:</h4><br>
-<% Property.order(:valutation).limit(10).each do |p| %>
+<% @highest_rank.each do |p| %>
   <table class='correlated' >
     <% if p.img1.present? %>
       <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
-    <tr><th><%= p.prezzo %></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+    <% if p.offer == nil %>
+      <tr><th><%= p.prezzo %></th></tr>
+    <% else %>
+      <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+    <% end %>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
 
@@ -51,8 +57,12 @@
       <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
-    <tr><th><%= p.prezzo %></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+    <% if p.offer == nil %>
+      <tr><th><%= p.prezzo %></th></tr>
+    <% else %>
+      <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+    <% end %>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
 
@@ -67,7 +77,7 @@
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
     <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
 <br class='clear'>
@@ -81,7 +91,12 @@
       <tr><th><%= image_tag(p.img1.url(:thumb),size: "90x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+    <% if p.offer == nil %>
+      <tr><th><%= p.prezzo %></th></tr>
+    <% else %>
+      <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+    <% end %>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
 <br class='clear'>
@@ -93,17 +108,17 @@
     var input = document.getElementById('city');
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  
+
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
     });
-  
+
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
-  
+
       if (places.length == 0) {
         return;
       }

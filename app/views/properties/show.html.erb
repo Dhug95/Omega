@@ -31,12 +31,24 @@
 <h2>Titolo: <%= @property.titolo %></h2>
 <p>Descrizione: <%= @property.descrizione %></p>
 
+<% if @property.img1.present? %>
+  <%= image_tag @property.img1.url(:medium) %>
+<% end %>
+
+<% if @property.img2.present? %>
+  <%= image_tag @property.img2.url(:medium) %>
+<% end %>
+
+<% if @property.img3.present? %>
+  <%= image_tag @property.img3.url(:medium) %>
+<% end %>
+
 <% if @property.offer == nil %>
-<p>Prezzo: <%= @property.prezzo %>€</p>
+<h3><p>Prezzo: <%= @property.prezzo %>€</p></h3>
 <%else %>
-<p> <font color="red">Prezzo(Scontato): <%= @property.offer %>€ </font></p>
+<h3><p> <font color="red">Prezzo(Scontato): <%= @property.offer %>€ </font></p></h3>
 <%end%>
-<p>Valutazione: <%= @property.valutation %></p>
+<h4><p>Valutazione: <%= @property.valutation %></p></h4>
 <p>Città: <%= @property.city %></p>
 
 <p>
@@ -53,42 +65,6 @@
     <%= @property.user.name %></p>
 <% end %>
 
-<% if @property.img1.present? %>
-  <%= image_tag @property.img1.url(:medium) %>
-<% end %>
-
-<% if @property.img2.present? %>
-  <%= image_tag @property.img2.url(:medium) %>
-<% end %>
-
-<% if @property.img3.present? %>
-  <%= image_tag @property.img3.url(:medium) %>
-<% end %>
-
-
-<br />
-<br />
-<hr />
-
-<p>
-  <strong>Proprietà nelle vicinanze:</strong>
-  <% for p in @property.nearbys(10) %>
-  <li>
-    <%= link_to p.titolo, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
-  </li>
-  <% end %>
-</p>
-<p>
-
-
-<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x350&maptype=roadmap
-&markers=color:red%8Clabel:S%7C#{@property.latitude},#{@property.longitude}
-&key=AIzaSyB4bGTS4lIxDUcOJC8YZM3eAuyg-4JYPfQ "%>
-
-</p>
-
-<br />
-<hr />
 <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
 
 <p><a class="twitter-share-button"
@@ -102,31 +78,29 @@
   <img src="http://tweetforprofits.com/UltraVid/images/share-twitter.png" style="width:210px;height:45px;">
 </a></p>
 
-<p>
-<% if current_user != @property.user %>
-  <%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>
-<% end %>
-</p>
+<br />
 
 <p><% if @property.user == current_user %>
-	<%= link_to "Modifica", edit_property_path(@property) %>
+	<%= link_to "Modifica", edit_property_path(@property), :class => 'btn btn-default' %>
 	<%= link_to "Elimina", property_path(@property),
 			method: :delete,
 		        data: {confirm: 'Are you sure?'},
 			:class => 'btn btn-danger' %>
 <% end %></p>
 
+<hr />
+
 <!-- ##########RECENSIONI########## -->
 
-<hr><h2>Recensioni</h2>
+<h2>Recensioni</h2>
 <% @property.reviews.each do |review| %>
 
   <p>
     <% if current_user.provider == nil %>
-      <h2><%= review.user.username %></h2>
+      <h3><%= review.user.username %></h3>
       <%= image_tag review.user.avatar.url(:small) %>
     <% else %>
-      <h2><%= review.user.name %></h2>
+      <h3><%= review.user.name %></h3>
       <%= image_tag review.user.image %>
     <% end %>
     <br>
@@ -139,7 +113,7 @@
   <% if current_user == review.user %>
     <%= link_to 'Elimina', [review.property, review],
             method: :delete,
-            data: { confirm: 'Sei sicuro?' } %>
+            data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
   <% end %>
 <% end %>
 
@@ -160,14 +134,41 @@
       Valutazione: <%= f.select :valutation, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']%>
     </p>
     <p>
-      <%= f.submit "Invia recensione" %>
+      <%= f.submit "Invia recensione", :class => 'btn btn-default'%>
     </p>
   <% end %>
 <% end %>
+<hr>
+
+<p>
+  <strong>Proprietà nelle vicinanze:</strong>
+  <% for p in @property.nearbys(10) %>
+  <li>
+    <%= link_to p.titolo, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
+  </li>
+  <% end %>
+</p>
+<p>
+
+
+<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x350&maptype=roadmap
+&markers=color:red%8Clabel:S%7C#{@property.latitude},#{@property.longitude}
+&key=AIzaSyB4bGTS4lIxDUcOJC8YZM3eAuyg-4JYPfQ "%>
+
+</p>
+
+<br />
+<hr />
+
+<p>
+<% if current_user != @property.user %>
+  <%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>
+<% end %>
+</p>
 
 <!-- ##########DOMANDE########## -->
 
-<hr><h2>Domande</h2>
+<h2>Domande</h2>
 <ul>
   <% @property.questions.each do |question| %>
     <li>
@@ -218,7 +219,7 @@
       <% if current_user == question.user %>
         <%= link_to 'Elimina', [question.property, question],
                  method: :delete,
-                 data: { confirm: 'Sei sicuro?' } %>
+                 data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-default' %>
       <% end %>
     </li>
   <% end %>
@@ -231,7 +232,7 @@
       <%= f.text_area :body %>
     </p>
     <p>
-      <%= f.submit "Invia" %>
+      <%= f.submit "Invia", :class => 'btn btn-default'%>
     </p>
   <% end %>
 <% end %>
