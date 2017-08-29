@@ -30,6 +30,7 @@ gem 'geocoder'
 gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
 # gem for inbox messages
 gem 'mailboxer'
+gem "simple_calendar", "~> 2.0"
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
