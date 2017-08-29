@@ -86,14 +86,6 @@
 
       </p>
     </div>
-    <div class="col-sm-6">
-      <%= month_calendar do |date| %>
-        <%= date.day %>
-        <% end %>
-
-
-
-    </div>
   </div>
 
 </div>
@@ -205,7 +197,7 @@
 
 <h2>Domande</h2>
 <ul>
-  <% @property.questions.each do |question| %>
+  <% @questions.each do |question| %>
     <li>
       <% if question.user.provider == nil %>
         <%= question.user.username %>
@@ -215,13 +207,10 @@
       <strong>-</strong><%= question.body %><br>
 
       Valutazione media:
-      <% if question.ratings %>
-        <% rating_count = question.ratings.count() %>
-        <% if rating_count > 0 %>
-          <%= question.ratings.sum(:stars) / rating_count %>
-        <% else %>
-          0
-        <% end %>
+      <% if question.valutation > 0 %>
+        <%= question.valutation %>
+      <% else %>
+        0
       <% end %>
 
       <% if question.user != current_user %>
@@ -274,7 +263,7 @@
 
 <hr>
   <h4>Proprietà Correlate:</h4>
-  <% Property.where(categories: @property.categories).find_each do |p| %>
+  <% @correlated.each do |p| %>
     <table class='correlated'>
       <% if p.id != @property.id %>
         <% if p.img1.present? %>

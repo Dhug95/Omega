@@ -19,8 +19,4 @@ class Property < ApplicationRecord
 
   geocoded_by :city
   after_validation :geocode
-  
-  def correlated
-    Property.all
-  end
 end

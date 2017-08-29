@@ -12,6 +12,8 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    @correlated = Property.where(categories: @property.categories)
+    @questions = @property.questions.order(:valutation).reverse
     media(@property)
   end
 

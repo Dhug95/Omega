@@ -48,7 +48,7 @@
 <hr>
 
 <h4>Più recensiti:</h4>
-<% Review.group(:property_id).count().each do |r| %>
+<% @most_rated.each do |r| %>
   <% p = Property.find(r.first) %>
   <table class='correlated' >
     <% if p.img1.present? %>
