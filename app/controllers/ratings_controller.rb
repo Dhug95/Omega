@@ -2,6 +2,13 @@ class RatingsController < ApplicationController
     def create
       @question = Question.find(params[:rating][:question_id])
       @rating = @question.ratings.create(rating_params)
+      rating_num = @question.ratings.count();
+      if rating_num > 0
+        val_media = @question.ratings.sum(:stars) / @question.ratings.count()
+      else
+        val_media = @rating.stars
+      end
+      @question.update_attribute(:valutation, val_media)
       current_user.ratings << @rating
       redirect_back(fallback_location: root_path)
     end
