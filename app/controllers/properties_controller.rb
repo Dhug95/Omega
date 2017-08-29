@@ -30,6 +30,7 @@ class PropertiesController < ApplicationController
       @valutazione = @valutazione + 1
     end
     property.valutation = @valutazione
+    property.save
   end
 
   def add_to_f
@@ -67,7 +68,7 @@ class PropertiesController < ApplicationController
 
   def edit
     @property = Property.find(params[:id])
-    
+
   end
 
   def update
@@ -87,6 +88,6 @@ class PropertiesController < ApplicationController
   end
 
   private def property_params
-    params.require(:property).permit(:titolo, :descrizione, :prezzo, :city, :img1, :img2, :img3,:offer, categories: [])
+    params.require(:property).permit(:valutation, :titolo, :descrizione, :prezzo, :city, :img1, :img2, :img3,:offer, categories: [])
   end
 end

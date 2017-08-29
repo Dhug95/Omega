@@ -28,7 +28,7 @@
   });
 </script>
 
-<h2>Titolo: <%= @property.titolo %></h2>
+<h1><%= @property.titolo %></h1>
 <p>Descrizione: <%= @property.descrizione %></p>
 
 <% if @property.img1.present? %>
@@ -90,7 +90,7 @@
       <%= month_calendar do |date| %>
         <%= date.day %>
         <% end %>
-    
+
 
 
     </div>

@@ -3,7 +3,8 @@ class WelcomeController < ApplicationController
     @properties = Property.all
     @newest = Property.all.order(created_at: :desc)
     @on_sale = Property.where("offer != 0")
-    @highest_rank = Property.where(:valutation == 0).order(:valutation).limit(10)
+    @highest_rank = Property.where("valutation != 0").order(:valutation).limit(10)
+
   end
 
   def results
