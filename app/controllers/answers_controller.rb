@@ -3,7 +3,6 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     @answer = @question.answers.create(answer_params)
     @answer.update_attribute(:valutation, 0)
-    puts @answer.valutation
     current_user.answers << @answer
     redirect_to property_question_path(@question, @question.property)
   end

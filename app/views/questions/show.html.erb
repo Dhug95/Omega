@@ -45,7 +45,7 @@
 <%= link_to 'Indietro', property_path(@property) %>
 
 <hr><h2>Risposte</h2>
-<% @question.answers.each do |answer| %>
+<% @answer.each do |answer| %>
   <p>
     <strong>• </strong>
     <% if current_user.provider == nil %>

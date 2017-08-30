@@ -109,7 +109,7 @@
 
 <br />
 
-<p><% if @property.user == current_user || current_user.admin %>
+<p><% if @property.user == current_user || @property.user == current_user.admin %>
 	<%= link_to "Modifica", edit_property_path(@property), :class => 'btn btn-default' %>
 	<%= link_to "Elimina", property_path(@property),
 			method: :delete,
@@ -207,11 +207,7 @@
       <strong>-</strong><%= question.body %><br>
 
       Valutazione media:
-      <% if question.valutation > 0 %>
-        <%= question.valutation %>
-      <% else %>
-        0
-      <% end %>
+      <%= question.valutation %>
 
       <% if question.user != current_user %>
         <ul class='rating'>

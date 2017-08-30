@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
  def show
     @property = Property.find(params[:id])
     @question = @property.questions.find(params[:property_id])
+    @answer = @question.answers.order(:valutation).reverse
  end
  
  def update
