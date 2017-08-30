@@ -46,6 +46,8 @@
   <table class='correlated' >
     <% if p.img1.present? %>
       <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+    <% else %>
+      <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
     <% if p.offer == nil %>
@@ -66,6 +68,8 @@
   <table class='correlated' >
     <% if p.img1.present? %>
       <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+    <% else %>
+      <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
     <% if p.offer == nil %>
@@ -85,6 +89,8 @@
   <table class='correlated' >
     <% if p.img1.present? %>
       <tr><th><%= image_tag(p.img1.url(:thumb),size: "90x80") %></th></tr>
+    <% else %>
+      <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
     <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
@@ -100,6 +106,8 @@
   <table class='correlated' >
     <% if p.img1.present? %>
       <tr><th><%= image_tag(p.img1.url(:thumb),size: "90x80") %></th></tr>
+    <% else %>
+      <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
     <tr><th><b><%= p.titolo %></b></th></tr>
     <% if p.offer == nil %>
