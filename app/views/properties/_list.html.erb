@@ -7,13 +7,13 @@
       <%= image_tag(image_path("default_local.jpg"), size: "80x80") %><br>
     <% end %>
     <b>Titolo:</b> <%= p.titolo %><br>
-    <b>Descrizione:</b> <%= p.descrizione %><br>
-    <% if p.offer == nil %>
-    <b>Prezzo:</b> <%= p.prezzo %>€<br>
 
+    <% if p.offer == nil %>
+      <b><%= p.prezzo %></b>€<br>
     <%else %>
-    <b><font color="red">Prezzo (Scontato):</b> <%= p.offer %>€ </font><br>
+      <b><del><%= p.prezzo %>€</del> <font color="red"><%= p.offer %>€ </font></b><br>
     <%end%>
+
     <b>Città:</b> <%= p.city %><br/>
     <b>Utente:</b>
     <% if p.user.provider == nil %>

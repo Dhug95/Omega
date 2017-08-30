@@ -41,7 +41,7 @@
 
 
 <hr>
-<h4>Più valutati:</h4><br>
+<h4><b>Più valutati:</b></h4><br>
 <% @highest_rank.each do |p| %>
   <table class='correlated' >
     <% if p.img1.present? %>
@@ -62,7 +62,7 @@
 <br class='clear'>
 <hr>
 
-<h4>Più recensiti:</h4>
+<h4><b>Più recensiti:</b></h4>
 <% @most_rated.each do |r| %>
   <% p = Property.find(r.first) %>
   <table class='correlated' >
@@ -83,7 +83,7 @@
 
 <br class='clear'>
 <hr>
-<h4>Proprietà in offerta:</h4>
+<h4><b>Proprietà in offerta:</b></h4>
 
 <% @on_sale.each do |p| %>
   <table class='correlated' >
@@ -100,7 +100,7 @@
 <br class='clear'>
 <hr>
 
-<h4>Proprietà aggiunte ultimamente:</h4>
+<h4><b>Proprietà aggiunte ultimamente:</b></h4>
 
 <% @newest.each do |p| %>
   <table class='correlated' >

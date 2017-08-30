@@ -1,5 +1,9 @@
 <h1>Questo è il tuo profilo. Ecco le tue informazioni:</h1>
 
+<% if current_user.provider %>
+  <h4><div class="alert alert-info" role="alert">Accesso effettuato tramite <b><%= current_user.provider %></b></div></h4>
+<% end %>
+
 <h2>Avatar: </h2>
 <% if current_user.provider == nil %>
   <% if @me.avatar.present? %>
@@ -24,4 +28,6 @@
 <h2>Creato: </h2>
 <%= @me.created_at %><p/>
 
-<%= link_to "Modifica info", edit_user_registration_path %>
+<hr>
+
+<%= link_to "Modifica info", edit_user_registration_path, :class => 'btn btn-primary' %>
