@@ -22,7 +22,7 @@
       <%= p.user.name %>
     <% end %>
     <p/>
-    <%= link_to "Vedi", property_path(p) %>
+    <%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %>
 <% end %>
 
 <%= paginate @properties %>

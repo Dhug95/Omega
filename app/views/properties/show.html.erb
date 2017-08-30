@@ -29,7 +29,7 @@
 </script>
 
 <h2><%= @property.titolo %></h2>
-<p>Descrizione: <%= @property.descrizione %></p>
+<p><b>Descrizione: </b><%= @property.descrizione %></p>
 
 <% if @property.img1.present? %>
   <%= image_tag @property.img1.url(:medium) %>
@@ -46,26 +46,31 @@
 <% end %>
 
 <% if @property.offer == nil %>
-<h3><p>Prezzo: <%= @property.prezzo %>€</p></h3>
+<h3><p><b>Prezzo: </b><%= @property.prezzo %>€</p></h3>
 <%else %>
-<h3><p> <font color="red">Prezzo(Scontato): <%= @property.offer %>€ </font></p></h3>
+<h3><b><del><%= @property.prezzo %>€</del></b> <font style="color:red"><b><%= @property.offer %>€</b></font></h3>
 <%end%>
-<h4><p>Valutazione: <%= @property.valutation %></p></h4>
-<p>Città: <%= @property.city %></p>
+<h4><p><b>Valutazione: </b><%= @property.valutation %></p></h4>
+<p><b>Città: </b><%= @property.city %></p>
 
 <p>
-  Categorie:
+  <b>Categorie:</b>
   <% @property.categories.each do |c| %>
     <%= c %>
   <% end %>
 </p>
 
-<p>Inserzione di:
+<p><b>Inserzione di:</b>
 <% if @property.user.provider == nil %>
-    <%= @property.user.username %></p>
+    <%= @property.user.username %>
 <% else %>
-    <%= @property.user.name %></p>
+    <%= @property.user.name %>
 <% end %>
+(<%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>)
+</p>
+
+<p>
+
 </p>
 
 <hr>
@@ -90,26 +95,27 @@
   </div>
 </div>
 
+<hr>
+
 <p>
   <h2>Disponibilità:</h2>
   <%= month_calendar events: @prenotations do |date, prenotations| %>
     <%= date.day %>
     <% prenotations.each do |prenotation| %>
       <div>
-        <%= prenotation.name %>
+        <p style="color:red;">Riservato</p>
       </div>
     <% end %>
   <% end %>
 
   <% if @property.user == current_user %>
-    <%= link_to "Modifica disponibilità", new_prenotation_path %>
+    <%= link_to "Modifica disponibilità", new_prenotation_path, :class => 'btn btn-primary'%>
+  <% else %>
+    <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
   <% end %>
 </p>
 
-<br />
 <hr />
-
-<p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
 
 <p><a class="twitter-share-button"
   href="https://twitter.com/share"
@@ -139,27 +145,31 @@
 <!-- ##########RECENSIONI########## -->
 
 <h2>Recensioni</h2>
-<% @property.reviews.each do |review| %>
+<% if @property.reviews.first == nil %>
+  <h4> Non è ancora stata scritta alcuna recensione. </h4>
+<% else %>
+  <% @property.reviews.each do |review| %>
 
-  <p>
-    <% if current_user.provider == nil %>
-      <h3><%= review.user.username %></h3>
-      <%= image_tag review.user.avatar.url(:small) %>
-    <% else %>
-      <h3><%= review.user.name %></h3>
-      <%= image_tag review.user.image %>
+    <p>
+      <% if current_user.provider == nil %>
+        <h3><%= review.user.username %></h3>
+        <%= image_tag review.user.avatar.url(:small) %>
+      <% else %>
+        <h3><%= review.user.name %></h3>
+        <%= image_tag review.user.image %>
+      <% end %>
+      <br>
+      Titolo: <%= review.title %>
+      <br><br>
+      Descrizione:
+      <p><%= review.body %></p>
+      Valutazione: <%= review.valutation %>
+    </p>
+    <% if current_user == review.user || current_user.admin %>
+      <%= link_to 'Elimina', [review.property, review],
+              method: :delete,
+              data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
     <% end %>
-    <br>
-    Titolo: <%= review.title %>
-    <br><br>
-    Descrizione:
-    <p><%= review.body %></p>
-    Valutazione: <%= review.valutation %>
-  </p>
-  <% if current_user == review.user || current_user.admin %>
-    <%= link_to 'Elimina', [review.property, review],
-            method: :delete,
-            data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
   <% end %>
 <% end %>
 
@@ -180,85 +190,72 @@
       Valutazione: <%= f.select :valutation, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']%>
     </p>
     <p>
-      <%= f.submit "Invia recensione", :class => 'btn btn-default'%>
+      <%= f.submit "Invia recensione", :class => 'btn btn-primary'%>
     </p>
   <% end %>
 <% end %>
 <hr>
 
-<p>
-  <strong>Proprietà nelle vicinanze:</strong>
-  <% for p in @property.nearbys(10) %>
-  <li>
-    <%= link_to p.titolo, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
-  </li>
-  <% end %>
-</p>
-<p>
-
-</p>
-
-<br />
-<hr />
-
-<p>
-  <%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>
-</p>
-
 <!-- ##########DOMANDE########## -->
 
 <h2>Domande</h2>
-<ul>
-  <% @questions.each do |question| %>
-    <li>
-      <% if question.user.provider == nil %>
-        <%= question.user.username %>
-      <% else %>
-        <%= question.user.name %>
-      <% end %><br>
-      <strong>-</strong><%= question.body %><br>
+<% if @property.questions.first == nil %>
+  <h4> Non è ancora stata fatta alcuna domanda. </h4>
+<% else %>
+  <ul>
+    <% @questions.each do |question| %>
+      <li>
+        <% if question.user.provider == nil %>
+          <%= question.user.username %>
+        <% else %>
+          <%= question.user.name %>
+        <% end %><br>
+        <strong>-</strong><%= question.body %><br>
 
-      Valutazione media:
-      <%= question.valutation %>
-      <% if current_user %>
-        <% if question.user != current_user %>
-          <ul class='rating'>
-            <% form_id = "question_#{question.id}_rating" %>
-            <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
-              <%= f.hidden_field :question_id %>
-              <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
-            <% end %>
-  
-            <% stars = 0 %>
-            <% question.ratings.each do |r| %>
-              <% if current_user.ratings.find_by(:id => r.id) %>
-                <% stars = r.stars %>
-                <% break %>
+        Valutazione media:
+        <%= question.valutation %>
+        <% if current_user %>
+          <% if question.user != current_user %>
+            <ul class='rating'>
+              <% form_id = "question_#{question.id}_rating" %>
+              <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
+                <%= f.hidden_field :question_id %>
+                <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
               <% end %>
-            <% end %>
-  
-            <% (1..5).each do |i| %>
-              <% if i <= stars %>
-                <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-              <% else %>
-                <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-              <% end %>
-            <% end %>
-          </ul><br>
-        <% end %>
-      <% end %>
 
-      <%= link_to 'Vedi risposte', property_question_path(question) %>
-      <% if current_user %>
-        <% if current_user == question.user || current_user.admin %>
-          <%= link_to 'Elimina', [question.property, question],
-                   method: :delete,
-                   data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-default' %>
+              <% stars = 0 %>
+              <% question.ratings.each do |r| %>
+                <% if current_user.ratings.find_by(:id => r.id) %>
+                  <% stars = r.stars %>
+                  <% break %>
+                <% end %>
+              <% end %>
+
+              <% (1..5).each do |i| %>
+                <% if i <= stars %>
+                  <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                <% else %>
+                  <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                <% end %>
+              <% end %>
+            </ul><br>
+          <% end %>
         <% end %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+
+        <%= link_to 'Vedi risposte', property_question_path(question) %>
+        <% if current_user %>
+          <% if current_user == question.user || current_user.admin %>
+            <%= link_to 'Elimina', [question.property, question],
+                     method: :delete,
+                     data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-default' %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<br><br>
 
 <% if current_user != nil %>
   <h2>Fai una domanda:</h2>
@@ -267,7 +264,7 @@
       <%= f.text_area :body %>
     </p>
     <p>
-      <%= f.submit "Invia", :class => 'btn btn-default'%>
+      <%= f.submit "Invia", :class => 'btn btn-primary'%>
     </p>
   <% end %>
 <% end %>
