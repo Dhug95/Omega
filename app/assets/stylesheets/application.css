@@ -21,6 +21,15 @@
     float: left;
 }
 
+.rating_star_review {
+    background: url('star-off.png');
+    width: 15px;
+    height: 15px;
+    display: block;
+    float: left;
+}
+
+
 .on {
     background: url('star-on.png');
 }
@@ -29,20 +38,16 @@
     padding-left: 0px;
 }
 
-.rating_like {
-    background: url('like.png');
-    width: 10px;
-    height: 10px;
-    display: block;
-    float: left;
-}
-
 .correlated {
     padding-left: 0px;
     float: left;
     margin-right: 15px;
 }
 
+.vote {
+    float: left;
+    list-style-type: none;
+}
 .clear {
     clear: left;
 }
@@ -58,3 +63,18 @@
     top: -50px;
     left: 24px;
 }
+
+.ratings {
+    float: left;
+    margin-right: 20%;
+}
+
+.question {
+    margin-top: 40px;
+}
+
+
+.list_question {
+    padding-left: 0px;
+}
+

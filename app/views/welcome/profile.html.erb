@@ -2,7 +2,11 @@
 
 <h2>Avatar: </h2>
 <% if current_user.provider == nil %>
-  <%= image_tag @me.avatar.url(:medium) %>
+  <% if @me.avatar.present? %>
+    <%= image_tag @me.avatar.url(:medium) %>
+  <% else %>
+    <%= image_tag image_path("default_user.jpg") %>
+  <% end %>
 <% else %>
   <%= image_tag current_user.image %>
 <% end %>

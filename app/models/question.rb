@@ -3,5 +3,5 @@ class Question < ApplicationRecord
   belongs_to :property
 
   has_many :answers, dependent: :destroy
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
 end

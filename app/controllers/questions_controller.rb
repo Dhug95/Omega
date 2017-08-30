@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
   def destroy
     @property = Property.find(params[:property_id])
     @question = @property.questions.find(params[:id])
+    puts @question
     @question.destroy
     redirect_to property_path(@property)
   end
