@@ -49,11 +49,11 @@
     <% else %>
       <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
-    <tr><th><b><%= p.titolo %></b></th></tr>
+    <tr><th><b><%= p.title %></b></th></tr>
     <% if p.offer == nil %>
-      <tr><th><%= p.prezzo %></th></tr>
+      <tr><th><%= p.price %></th></tr>
     <% else %>
-      <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+      <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <% end %>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
@@ -71,11 +71,11 @@
     <% else %>
       <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
-    <tr><th><b><%= p.titolo %></b></th></tr>
+    <tr><th><b><%= p.title %></b></th></tr>
     <% if p.offer == nil %>
-      <tr><th><%= p.prezzo %></th></tr>
+      <tr><th><%= p.price %></th></tr>
     <% else %>
-      <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+      <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <% end %>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
@@ -92,8 +92,8 @@
     <% else %>
       <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
-    <tr><th><b><%= p.titolo %></b></th></tr>
-    <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+    <tr><th><b><%= p.title %></b></th></tr>
+    <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
@@ -109,11 +109,11 @@
     <% else %>
       <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
-    <tr><th><b><%= p.titolo %></b></th></tr>
+    <tr><th><b><%= p.title %></b></th></tr>
     <% if p.offer == nil %>
-      <tr><th><%= p.prezzo %></th></tr>
+      <tr><th><%= p.price %></th></tr>
     <% else %>
-      <tr><th><del><%= p.prezzo %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+      <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <% end %>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>

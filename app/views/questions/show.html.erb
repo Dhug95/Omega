@@ -7,7 +7,7 @@
     else {
       elem.addClass('on');
     }
-  }  
+  }
 
   $(function() {
     $('.rating_star').click(function() {
@@ -15,9 +15,9 @@
       var answer_id = $(this).attr('data-answer-id');
       set_stars(form_id,answer_id);
       stars = 0;
-        
+
       $('#' + form_id + '_stars').val(stars);
-        
+
       $.ajax({
         type: "post",
         url: $('#' + form_id).attr('action'),
@@ -27,7 +27,7 @@
   });
 </script>
 
-<h3>Domande su: <%= @question.property.titolo %></h3>
+<h3>Domande su: <%= @question.property.title %></h3>
 
 <p>
 <strong>Utente:</strong>
@@ -58,7 +58,7 @@
         <%= form_for answer.answer_rating.last || answer.answer_rating.build, :html => {:id => "answer_#{answer.id}_rating" } do |f| %>
           <%= f.hidden_field :answer_id %>
         <% end %>
-        
+
         <% answer.answer_rating.each do |r| %>
           <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
           <% if current_answer && current_answer.stars == 1 %>
@@ -71,7 +71,7 @@
         <% end %>
       </ul>
     <% end %>
-    
+
     <% if current_user == @question.user || current_user == answer.user %>
       <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
                method: :delete,

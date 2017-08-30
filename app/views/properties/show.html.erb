@@ -29,13 +29,13 @@
 </script>
 
 <div class="page-header">
-  <h1><%= @property.titolo %></h1>
+  <h1><%= @property.title %></h1>
 </div>
 
 <div class="panel panel-default">
   <div class="panel-heading"><b>Descrizione</b></div>
   <div class="panel-body">
-    <div><%= @property.descrizione %></div>
+    <div><%= @property.description %></div>
   </div>
 </div>
 
@@ -56,9 +56,9 @@
 <hr>
 
 <% if @property.offer == nil %>
-<h3><p><b>Prezzo: </b><%= @property.prezzo %>€</p></h3>
+<h3><p><b>Prezzo: </b><%= @property.price %>€</p></h3>
 <%else %>
-<h3><b><del><%= @property.prezzo %>€</del></b> <font style="color:red"><b><%= @property.offer %>€</b></font></h3>
+<h3><b><del><%= @property.price %>€</del></b> <font style="color:red"><b><%= @property.offer %>€</b></font></h3>
 <%end%>
 
 <ul class='rating'>
@@ -100,7 +100,7 @@
         <strong>Proprietà nelle vicinanze:</strong>
         <% for p in @property.nearbys(10) %>
         <li>
-          <%= link_to p.titolo, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
+          <%= link_to p.title, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
         </li>
         <% end %>
       </p>
@@ -129,7 +129,7 @@
   <% if @property.user == current_user %>
     <%= link_to "Modifica disponibilità", new_prenotation_path, :class => 'btn btn-primary'%>
   <% else %>
-    <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.titolo %></p>
+    <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.title %></p>
   <% end %>
 </p>
 
@@ -316,8 +316,8 @@
         <% if p.img1.present? %>
           <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
         <% end %>
-        <tr><th><b><%= p.titolo %></b></th></tr>
-        <tr><th><%= p.prezzo %></th></tr>
+        <tr><th><b><%= p.title %></b></th></tr>
+        <tr><th><%= p.price %></th></tr>
         <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
       <% end %>
     </table>

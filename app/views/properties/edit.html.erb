@@ -2,17 +2,17 @@
 <%= form_for :property, url: property_path(@property), method: :patch do |p| %>
   <p>
     <%= p.label :titolo %><br>
-    <%= p.text_field :titolo %><br>
+    <%= p.text_field :title %><br>
   </p>
 
   <p>
     <%= p.label :descrizione %><br>
-    <%= p.text_area :descrizione %>
+    <%= p.text_area :title %>
   </p>
 
   <p>
     <%= p.label :prezzo %><br>
-    <%= p.text_field :prezzo %><br>
+    <%= p.text_field :price %><br>
   </p>
 
   <p>

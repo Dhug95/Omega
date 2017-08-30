@@ -6,12 +6,12 @@
     <% else %>
       <%= image_tag(image_path("default_local.jpg"), size: "80x80") %><br>
     <% end %>
-    <b>Titolo:</b> <%= p.titolo %><br>
+    <b>Titolo:</b> <%= p.title %><br>
 
     <% if p.offer == nil %>
-      <b><%= p.prezzo %></b>€<br>
+      <b><%= p.price %></b>€<br>
     <%else %>
-      <b><del><%= p.prezzo %>€</del> <font color="red"><%= p.offer %>€ </font></b><br>
+      <b><del><%= p.price %>€</del> <font color="red"><%= p.offer %>€ </font></b><br>
     <%end%>
 
     <b>Città:</b> <%= p.city %><br/>
