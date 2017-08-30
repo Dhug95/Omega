@@ -1,0 +1,2 @@
+class Prenotation < ApplicationRecord
+end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :prenotations
   get 'welcome/index'
   get 'welcome/profile'
   get 'welcome/results'

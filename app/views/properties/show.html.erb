@@ -90,6 +90,21 @@
 
 </div>
 
+<p>
+  <h2>Disponibilità:</h2>
+  <%= month_calendar events: @prenotations do |date, prenotations| %>
+    <%= date.day %>
+    <% prenotations.each do |prenotation| %>
+      <div>
+        <%= prenotation.name %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if @property.user == current_user %>
+    <%= link_to "Modifica disponibilità", new_prenotation_path %>
+  <% end %>
+</p>
 
 <br />
 <hr />

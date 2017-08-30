@@ -15,6 +15,7 @@ class PropertiesController < ApplicationController
     @correlated = Property.where(categories: @property.categories)
     @questions = @property.questions.order(:valutation).reverse
     media(@property)
+    @prenotations = Prenotation.all
   end
 
   def media(property)
