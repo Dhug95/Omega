@@ -21,31 +21,31 @@
   <hr>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Tipologia di acquisto") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"]]), :include_blank => false, :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Tipologia di proprietà") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"]]), :include_blank => false, :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Preferenza fascia oraria") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"]]), :include_blank => false, :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <table class='correlated'>
       <tr><th><%= label_tag(:categories, "Preferenza stanza") %></th></tr>
-      <tr><th><%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => "Seleziona una o più categorie", :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
+      <tr><th><%= select_tag :categories, options_for_select([["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"]]), :include_blank => false, :multiple => true, :class => "btn btn-default dropdown-toggle" %></th></tr>
     </table>
     <br class='clear'><br>
-    <%= submit_tag("Search", :class => 'btn btn-primary') %>
+    <%= submit_tag("Cerca", :class => 'btn btn-primary') %>
 <% end %>
 
 
 <hr>
-<h4><b>Più valutati:</b></h4><br>
+<h4><b>Più valutati:</b></h4>
 <% @highest_rank.each do |p| %>
   <table class='correlated' >
     <% if p.img1.present? %>
-      <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
+      <tr><th><%= image_tag(p.img1.url,size: "80x80") %></th></tr>
     <% else %>
       <tr><th><%= image_tag(image_path("default_local.jpg"), size: "80x80") %></th></tr>
     <% end %>
