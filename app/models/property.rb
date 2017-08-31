@@ -21,6 +21,7 @@ class Property < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :prenotations, dependent: :destroy
 
   geocoded_by :city
   after_validation :geocode

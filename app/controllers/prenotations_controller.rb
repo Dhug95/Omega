@@ -15,6 +15,7 @@ class PrenotationsController < ApplicationController
   # GET /prenotations/new
   def new
     @prenotation = Prenotation.new
+    @property_id = params[:property_id]
   end
 
   # GET /prenotations/1/edit
@@ -24,7 +25,8 @@ class PrenotationsController < ApplicationController
   # POST /prenotations
   # POST /prenotations.json
   def create
-    @prenotation = Prenotation.new(prenotation_params)
+    @property = Property.find(params[:prenotation][:property_id])
+    @prenotation = @property.prenotations.create(prenotation_params)
 
     respond_to do |format|
       if @prenotation.save
