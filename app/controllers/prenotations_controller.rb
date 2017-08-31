@@ -1,5 +1,5 @@
 class PrenotationsController < ApplicationController
-  before_action :set_prenotation, only: [:show, :edit, :update, :destroy]
+  before_action :set_prenotation, only: [:show, :edit, :update, :destroy], :authenticate_user!
 
   # GET /prenotations
   # GET /prenotations.json

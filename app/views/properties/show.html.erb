@@ -164,10 +164,10 @@
           <div class="panel-body">
             <p>
               <h4><%= review.user.username %></h4>
-              <% if current_user.provider == nil %>
-                <%= image_tag @me.avatar.url(:medium) %>
+              <% if review.user.provider == nil %>
+                <%= image_tag review.user.avatar.url(:medium) %>
               <% else %>
-                <%= image_tag current_user.image %>
+                <%= image_tag review.user.image %>
               <% end %>              <br>
               <b>Titolo: </b> <%= review.title %><br>
               <b>Descrizione:</b>
