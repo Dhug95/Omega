@@ -2,11 +2,7 @@
   <hr>
     <b>Anteprima:</b>
     <br>
-    <% if p.img1.present? %>
-      <%= image_tag p.img1.url(:thumb) %><br>
-    <% else %>
-      <%= image_tag(image_path("default_local.jpg"), size: "80x80") %><br>
-    <% end %>
+    <%= image_tag p.img1.url(:thumb), size: "70x50" %><br>
     <b>Titolo:</b> <%= p.title %><br>
 
     <% if p.offer == nil %>

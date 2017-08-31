@@ -10,13 +10,13 @@ class Property < ApplicationRecord
 
   serialize :categories, Array
 
-  has_attached_file :img1, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :img1, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: ":style/default_local.jpg"
   validates_attachment_content_type :img1, content_type: /\Aimage\/.*\z/
 
-  has_attached_file :img2, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :img2, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: ":style/default_local.jpg"
   validates_attachment_content_type :img2, content_type: /\Aimage\/.*\z/
 
-  has_attached_file :img3, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :img3, styles: { small: "200x200>", medium: "300x300>", thumb: "100x100>" }, default_url: ":style/default_local.jpg"
   validates_attachment_content_type :img3, content_type: /\Aimage\/.*\z/
 
   has_many :questions, dependent: :destroy

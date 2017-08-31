@@ -40,19 +40,11 @@
 </div>
 
 <div class='property_images'>
-  <% if @property.img1.present? %>
-    <%= image_tag @property.img1.url(:medium), :class => "rounded img-thumbnail img_class", size: "280x270" %>
-  <% else %>
-    <%= image_tag image_path("default_local.jpg") %>
-  <% end %>
+  <%= image_tag @property.img1.url(:medium), size: "260x200" %>
 
-  <% if @property.img3.present? %>
-    <%= image_tag @property.img3.url(:medium), :class => "rounded img-thumbnail img_class", size: "280x270"  %>
-  <% end %>
+  <%= image_tag @property.img2.url(:medium), size: "260x200" %>
 
-  <% if @property.img2.present? %>
-    <%= image_tag @property.img2.url(:medium), :class => "rounded img-thumbnail", size: "280x270"  %>
-  <% end %>
+  <%= image_tag @property.img3.url(:medium), size: "260x200" %>
 </div>
 
 <% if @property.offer == nil %>
@@ -172,13 +164,7 @@
           <div class="panel-body">
             <p>
               <h4><%= review.user.username %></h4>
-              <% if review.user.avatar.present? %>
-                <%= image_tag(review.user.avatar.url, size: "40x40") %>
-              <% elsif review.user.image.present? %>
-                <%= image_tag(image_path("default_user.jpg"), size: "40x40") %>
-              <% else %>
-                <%= image_tag(image_path("default_user.jpg"), size: "40x40") %>
-              <% end %>
+              <%= image_tag(review.user.avatar.url, size: "40x40") %>
               <br>
               <b>Titolo: </b> <%= review.title %><br>
               <b>Descrizione:</b>
@@ -288,9 +274,7 @@
   <% @correlated.each do |p| %>
     <table class='correlated'>
       <% if p.id != @property.id %>
-        <% if p.img1.present? %>
-          <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
-        <% end %>
+        <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
         <tr><th><b><%= p.title %></b></th></tr>
         <tr><th><%= p.price %></th></tr>
         <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
