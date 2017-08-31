@@ -7,12 +7,8 @@
 
 <% @conversations.each do |conversation| %>
 
-  <div>
-
-
-
-      <div>Oggetto: <%= link_to conversation.subject, conversation_path(conversation) %></div>
-    <div id="right"><%= link_to 'Cestina', conversation_path(conversation), method: :delete, data: { confirm: 'Are you sure?' } %> </div>
+    <div>Oggetto: <%= link_to conversation.subject, conversation_path(conversation) %></div>
+    <div id="right"><%= link_to 'Cestina', conversation_path(conversation), method: :delete, data: { confirm: 'Sei sicuro?' } %> </div>
     <hr />
   </div>
 

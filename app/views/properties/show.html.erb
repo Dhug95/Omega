@@ -69,8 +69,10 @@
 
 <p>
   <b>Categorie:</b>
-  <% @property.categories.each do |c| %>
-    <%= c %>
+  | <% @property.categories.each do |c| %>
+    <% if c != "" %>
+      <%= c %> |
+    <% end %>
   <% end %>
 </p>
 
