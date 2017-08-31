@@ -12,8 +12,17 @@ user = User.new(
   :password => "SeCrEt",
   :password_confirmation => "SeCrEt",
   :username => "admin",
+<<<<<<< HEAD
   :avatar_file_name => "app/assets/images/default_user.jpg",
   :admin => "true"
+=======
+  :admin => "true",
+  :avatar_file_name => "IMG_20170804_113127.jpg",
+  :avatar_content_type => "image/jpeg",
+  :avatar_file_size => 731910,
+  :avatar_updated_at => "2017-08-31 14:50:51"
+>>>>>>> 875b84bab5580f9f4ec34730734c1a283299344f
 )
+
 #user.skip_confirmation!
 user.save!
