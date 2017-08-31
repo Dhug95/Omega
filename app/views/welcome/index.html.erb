@@ -55,6 +55,15 @@
     <% else %>
       <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <% end %>
+    <tr><th><ul class='rating'>
+      <% (1..5).each do |i| %>
+        <% if i <= p.valutation %>
+          <li class="rating_star on"></li>
+        <% else %>
+          <li class="rating_star"></li>
+        <% end %>
+      <% end %>
+    </ul></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
@@ -77,6 +86,15 @@
     <% else %>
       <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <% end %>
+    <tr><th><ul class='rating'>
+      <% (1..5).each do |i| %>
+        <% if i <= p.valutation %>
+          <li class="rating_star on"></li>
+        <% else %>
+          <li class="rating_star"></li>
+        <% end %>
+      <% end %>
+    </ul></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
@@ -95,6 +113,15 @@
     <tr><th><b><%= p.title %></b></th></tr>
     <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
+    <tr><th><ul class='rating'>
+      <% (1..5).each do |i| %>
+        <% if i <= p.valutation %>
+          <li class="rating_star on"></li>
+        <% else %>
+          <li class="rating_star"></li>
+        <% end %>
+      <% end %>
+    </ul></th></tr>
   </table>
 <% end %>
 <br class='clear'>
@@ -115,6 +142,15 @@
     <% else %>
       <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
     <% end %>
+    <tr><th><ul class='rating'>
+      <% (1..5).each do |i| %>
+        <% if i <= p.valutation %>
+          <li class="rating_star on"></li>
+        <% else %>
+          <li class="rating_star"></li>
+        <% end %>
+      <% end %>
+    </ul></th></tr>
     <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
   </table>
 <% end %>
