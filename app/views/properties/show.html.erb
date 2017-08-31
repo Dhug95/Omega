@@ -45,16 +45,16 @@
   <% else %>
     <%= image_tag image_path("default_local.jpg") %>
   <% end %>
-  
+
   <% if @property.img3.present? %>
     <%= image_tag @property.img3.url(:medium), :class => "rounded img-thumbnail img_class", size: "280x270"  %>
   <% end %>
-  
+
   <% if @property.img2.present? %>
     <%= image_tag @property.img2.url(:medium), :class => "rounded img-thumbnail", size: "280x270"  %>
   <% end %>
 </div>
-  
+
 <% if @property.offer == nil %>
 <h3><p><b>Prezzo: </b><%= @property.price %>€</p></h3>
 <%else %>
@@ -195,28 +195,11 @@
           </div>
         <% end %>
       <% end %><br>
-
+      
       <% if current_user && current_user != @property.user %>
-        <h3>Scrivi una recensione:</h3>
-        <%= form_for([@property, @property.reviews.build]) do |f| %>
-          <p>
-            <%= f.label "Titolo" %><br>
-            <%= f.text_field(:title, size:'15', :class => "form-control") %>
-          </p>
-          <p>
-            <%= f.label "Descrizione"%><br>
-            <%= f.text_area :body, :class => "form-control"%>
-          </p>
-          <p>
-            Valutazione: <%= f.select :valutation, ['1', '2', '3', '4', '5']%>
-          </p>
-          <p>
-            <%= f.submit "Invia recensione", :class => 'btn btn-primary'%>
-          </p>
-        <% end %>
+        <%= link_to "Scrivi una recensione", new_review_path(:property => @property), :class => 'btn btn-primary' %>
       <% end %>
     </div>
-
   </div>
 </div>
 
