@@ -1,6 +1,7 @@
 <% @properties.each do |p| %>
   <hr>
-    <b>Anteprima:</b><br>
+    <b>Anteprima:</b>
+    <br>
     <% if p.img1.present? %>
       <%= image_tag p.img1.url(:thumb) %><br>
     <% else %>
@@ -16,12 +17,8 @@
 
     <b>Città:</b> <%= p.city %><br/>
     <b>Utente:</b>
-    <% if p.user.provider == nil %>
-      <%= p.user.username %>
-    <% else %>
-      <%= p.user.name %>
-    <% end %>
-    <p/>
+    <%= p.user.username %>
+
     <%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %>
 <% end %>
 

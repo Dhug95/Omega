@@ -83,11 +83,8 @@
 </p>
 
 <p><b>Inserzione di:</b>
-<% if @property.user.provider == nil %>
-    <%= @property.user.username %>
-<% else %>
-    <%= @property.user.name %>
-<% end %>
+<%= @property.user.username %>
+
 (<%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>)
 </p>
 
@@ -171,15 +168,12 @@
           <div class="panel panel-default">
           <div class="panel-body">
             <p>
-              <% if current_user.provider == nil %>
-                <h4><%= review.user.username %></h4>
-                <% if review.user.avatar.present? %>
-                  <%= image_tag(review.user.avatar.url, size: "40x40") %>
-                <% else %>
-                  <%= image_tag(image_path("default_user.jpg"), size: "40x40") %>
-                <% end %>
+              <h4><%= review.user.username %></h4>
+              <% if review.user.avatar.present? %>
+                <%= image_tag(review.user.avatar.url, size: "40x40") %>
+              <% elsif review.user.image.present? %>
+                <%= image_tag(image_path("default_user.jpg"), size: "40x40") %>
               <% else %>
-                <h3><%= review.user.name %></h3>
                 <%= image_tag review.user.image %>
               <% end %>
               <br>
@@ -244,11 +238,8 @@
         <ul class='list_question'>
           <% @questions.each do |question| %>
             <li>
-              <% if question.user.provider == nil %>
-                <%= question.user.username %>
-              <% else %>
-                <%= question.user.name %>
-              <% end %><br>
+              <%= question.user.username %>
+              <br>
               <strong>-</strong><%= question.body %><br>
 
               Valutazione media:

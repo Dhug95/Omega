@@ -19,11 +19,7 @@
 <%= @me.email %>
 
 <h2>Username: </h2>
-<% if current_user.provider == nil %>
-  <%= @me.username %>
-<% else %>
-  <%= current_user.name %>
-<% end %>
+<%= @me.username %>
 
 <h2>Creato: </h2>
 <%= @me.created_at %><p/>

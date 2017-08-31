@@ -31,12 +31,9 @@
 
 <p>
 <strong>Utente:</strong>
-<% if @question.user.provider != nil %>
-  <%= @question.user.name %>
-<% else %>
-  <%= @question.user.username %>
-<% end %>
+<%= @question.user.username %>
 </p>
+
 <p>
 <strong>Testo:</strong>
 <%= @question.body %>
@@ -75,7 +72,7 @@
     <% if current_user == @question.user || current_user == answer.user %>
       <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
                method: :delete,
-               data: { confirm: 'Sei sicuro?' } %>
+               data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
     <% end %>
   </p>
 <% end %>

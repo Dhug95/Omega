@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830231825) do
+ActiveRecord::Schema.define(version: 20170831095533) do
 
   create_table "answer_ratings", force: :cascade do |t|
     t.integer "user_id"
@@ -194,7 +194,6 @@ ActiveRecord::Schema.define(version: 20170830231825) do
     t.datetime "avatar_updated_at"
     t.string "provider"
     t.string "uid"
-    t.string "name"
     t.text "image"
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
