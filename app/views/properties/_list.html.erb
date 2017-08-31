@@ -6,9 +6,9 @@
     <b>Titolo:</b> <%= p.title %><br>
 
     <% if p.offer == nil %>
-      <b><%= p.price %></b>€<br>
-    <%else %>
-      <b><del><%= p.price %>€</del> <font color="red"><%= p.offer %>€ </font></b><br>
+    <b>Prezzo:</b> <%= p.price %>€<br>
+    <% else %>
+    <b>Prezzo:</b> <del><%= p.price %>€</del> <font color="red"><%= p.offer %>€ </font><br>
     <%end%>
 
     <b>Città:</b> <%= p.city %><br/>
@@ -17,6 +17,7 @@
     <br>
 
     <%= link_to "Vedi", property_path(p), :class => 'btn btn-success' %>
+    <br>
 <% end %>
 
 <%= paginate @properties %>

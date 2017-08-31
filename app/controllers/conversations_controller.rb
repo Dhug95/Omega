@@ -21,7 +21,7 @@ class ConversationsController < ApplicationController
   end
 
   def new
-    @recipients = User.all - [current_user]
+    @recipients = User.where("id != ? and id != ?", 1, current_user.id)
   end
 
   def destroy

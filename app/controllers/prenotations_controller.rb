@@ -23,7 +23,7 @@ class PrenotationsController < ApplicationController
 
     respond_to do |format|
       if @prenotation.save
-        format.html { redirect_to @property, notice: 'Prenotation was successfully created.' }
+        format.html { redirect_to property_prenotations_path(@property), notice: 'Prenotazione effettuata con successo.' }
         format.json { render :show, status: :created, location: @prenotation }
       else
         format.html { render :new }
@@ -38,7 +38,7 @@ class PrenotationsController < ApplicationController
     @property = Property.find(params[:property_id])
     @prenotation.destroy
     respond_to do |format|
-      format.html { redirect_to @property, notice: 'Prenotation was successfully destroyed.' }
+      format.html { redirect_to property_prenotations_path(@property), notice: 'Prenotazione eliminata con successo.' }
       format.json { head :no_content }
     end
   end
