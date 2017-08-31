@@ -164,8 +164,11 @@
           <div class="panel-body">
             <p>
               <h4><%= review.user.username %></h4>
-              <%= image_tag(review.user.avatar.url, size: "40x40") %>
-              <br>
+              <% if current_user.provider == nil %>
+                <%= image_tag @me.avatar.url(:medium) %>
+              <% else %>
+                <%= image_tag current_user.image %>
+              <% end %>              <br>
               <b>Titolo: </b> <%= review.title %><br>
               <b>Descrizione:</b>
               <p><%= review.body %></p>
@@ -251,7 +254,7 @@
                 <% if current_user == question.user || current_user.admin %>
                   <%= link_to 'Elimina', [question.property, question],
                            method: :delete,
-                           data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-default' %>
+                           data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
                 <% end %>
               <% end %>
             </li>
