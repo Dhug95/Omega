@@ -283,17 +283,17 @@
   <% end %>
 <br class='clear'>
 
-<% if current_user != nil %>
+<% if current_user && current_user != @property.user %>
   <hr><h3>Link utili:</h3>
 	<% if current_user.favourites.exists?(@property.id) %>
 		<%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %><p/>
 	<% else %>
 		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %><p/>
 	<% end %>
-
-	<% if current_user.followings.exists?(@property.user.id) %>
-		<%= link_to "Unfollow utente", unfollow_path(@property), method: :post %><p/>
-	<% else %>
-		<%= link_to "Follow utente", follow_path(@property), method: :post %><p/>
+  
+  <% if current_user.followings.exists?(@property.user.id) %>
+	  <%= link_to "Unfollow utente", unfollow_path(@property), method: :post %><p/>
+  <% else %>
+  	<%= link_to "Follow utente", follow_path(@property), method: :post %><p/>
 	<% end %>
 <% end %>

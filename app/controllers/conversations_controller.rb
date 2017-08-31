@@ -9,10 +9,15 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    recipient = User.find(params[:user_id])
-    receipt = current_user.send_message(recipient, params[:body], params[:subject])
-    current_user.notify(recipient, "", nil, true, nil, false)
-    redirect_to conversation_path(receipt.conversation)
+    if (params[:user_id] == nil || params[:body] == nil || params[:subject] == nil)
+      flash[:error] = 'Riempire tutti i campi'
+      redirect_back(fallback_location: root_path)
+    else
+      recipient = User.find(params[:user_id])
+      receipt = current_user.send_message(recipient, params[:body], params[:subject])
+      current_user.notify(recipient, "", nil, true, nil, false)
+      redirect_to conversation_path(receipt.conversation)
+    end
   end
 
   def new
