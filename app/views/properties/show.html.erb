@@ -39,22 +39,22 @@
   </div>
 </div>
 
-<% if @property.img1.present? %>
-  <%= image_tag @property.img1.url(:medium), :class => "img" %>
-<% else %>
-  <%= image_tag image_path("default_local.jpg") %>
-<% end %>
-
-<% if @property.img3.present? %>
-  <%= image_tag @property.img3.url(:medium), :class => "img"  %>
-<% end %>
-
-<% if @property.img2.present? %>
-  <%= image_tag @property.img2.url(:medium), :class => "img"  %>
-<% end %>
-
-<hr>
-
+<div class='property_images'>
+  <% if @property.img1.present? %>
+    <%= image_tag @property.img1.url(:medium), :class => "rounded img-thumbnail img_class", size: "280x270" %>
+  <% else %>
+    <%= image_tag image_path("default_local.jpg") %>
+  <% end %>
+  
+  <% if @property.img3.present? %>
+    <%= image_tag @property.img3.url(:medium), :class => "rounded img-thumbnail img_class", size: "280x270"  %>
+  <% end %>
+  
+  <% if @property.img2.present? %>
+    <%= image_tag @property.img2.url(:medium), :class => "rounded img-thumbnail", size: "280x270"  %>
+  <% end %>
+</div>
+  
 <% if @property.offer == nil %>
 <h3><p><b>Prezzo: </b><%= @property.price %>€</p></h3>
 <%else %>
