@@ -196,7 +196,7 @@
         <% end %>
       <% end %><br>
 
-      <% if current_user %>
+      <% if current_user && current_user != @property.user %>
         <h3>Scrivi una recensione:</h3>
         <%= form_for([@property, @property.reviews.build]) do |f| %>
           <p>
@@ -280,7 +280,7 @@
         </ul>
       <% end %>
 
-      <% if current_user != nil %>
+      <% if current_user && current_user != @property.user %>
         <h3>Fai una domanda:</h3>
         <%= form_for([@property, @property.questions.build]) do |f| %>
           <p><%= f.text_area :body, :class => "form-control"%></p>
