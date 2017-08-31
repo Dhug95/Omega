@@ -74,7 +74,7 @@
           </ul>
         <% end %>
         <br>
-        <% if current_user == @question.user || current_user == answer.user %>
+        <% if current_user && (current_user == @question.user || current_user == answer.user || current_user.admin) %>
         <br>
           <%= link_to 'Elimina', [answer.question.property, answer.question, answer],
                    method: :delete,

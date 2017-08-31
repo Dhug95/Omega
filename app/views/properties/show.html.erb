@@ -162,7 +162,7 @@
     <% end %>
   <% end %>
 
-  <% if @property.user == current_user %>
+  <% if current_user && (@property.user == current_user || current_user.admin) %>
     <%= link_to "Modifica disponibilità", property_prenotations_path(@property), :class => 'btn btn-warning' %>
   <% end %>
 </p><hr>
@@ -185,7 +185,7 @@
             <p>
               <h4><%= review.user.username %></h4>
               <% if review.user.provider == nil %>
-                <%= image_tag review.user.avatar.url(:medium) %>
+                <%= image_tag review.user.avatar.url(:thumb) %>
               <% else %>
                 <%= image_tag review.user.image %>
               <% end %>              <br>
