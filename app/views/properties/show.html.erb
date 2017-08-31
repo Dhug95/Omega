@@ -80,7 +80,12 @@
 <%= @property.user.username %>
 
 (<%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>)
-</p><hr>
+</p>
+
+<% if current_user != @property.user %>
+  <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.title, class: 'btn btn-info' %></p>
+<% end %>
+<hr>
 
 <% if current_user %>
   <p><% if @property.user == current_user || current_user.admin %>
@@ -96,7 +101,7 @@
   <% if current_user.followings.exists?(@property.user.id) %>
     <%= link_to "Unfollow utente", unfollow_path(@property), method: :post, class: 'btn btn-warning' %><p/>
   <% else %>
-    <%= link_to "Follow utente", follow_path(@property), method: :post, class: 'btn btn-success' %><p/>
+    <%= link_to "Follow utente", follow_path(@property), method: :post, class: 'btn btn-default' %><p/>
   <% end %>
 <% end %>
 
@@ -106,7 +111,7 @@
 	<% if current_user.favourites.exists?(@property.id) %>
 		<%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post, class: 'btn btn-warning' %><p/>
 	<% else %>
-		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post, class: 'btn btn-success' %><p/>
+		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post, class: 'btn btn-default' %><p/>
 	<% end %>
 <% end %>
 
@@ -159,8 +164,6 @@
 
   <% if @property.user == current_user %>
     <%= link_to "Modifica disponibilità", property_prenotations_path(@property), :class => 'btn btn-warning' %>
-  <% else %>
-    <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.title %></p>
   <% end %>
 </p><hr>
 
@@ -225,56 +228,61 @@
   <div class="panel-body" >
 
       <% if @property.questions.first == nil %>
-      <div class="alert alert-warning" role="alert">
-        <h5> Non è ancora stata fatta alcuna domanda!</h5>
-      </div>
+        <div class="alert alert-warning" role="alert">
+          <h5> Non è ancora stata fatta alcuna domanda!</h5>
+        </div>
       <% else %>
         <ul class='list_question'>
           <% @questions.each do |question| %>
-            <li>
-              <%= question.user.username %>
-              <br>
-              <strong>-</strong><%= question.body %><br>
+            <div class="panel panel-default">
+            <div class="panel-body">
 
-              Valutazione media:
-              <%= question.valutation %>
-              <% if current_user %>
-                <% if question.user != current_user %>
-                  <ul class='rating'>
-                    <% form_id = "question_#{question.id}_rating" %>
-                    <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
-                      <%= f.hidden_field :question_id %>
-                      <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
-                    <% end %>
-
-                    <% stars = 0 %>
-                    <% question.ratings.each do |r| %>
-                      <% if current_user.ratings.find_by(:id => r.id) %>
-                        <% stars = r.stars %>
-                        <% break %>
+                <b><%= question.user.username %></b>
+                <br>
+                <%= question.body %><br>
+                <br>
+                Punteggio:
+                <%= question.valutation %>
+                <br>
+                <% if current_user %>
+                  <% if question.user != current_user %>
+                    <ul class='rating'>
+                      <% form_id = "question_#{question.id}_rating" %>
+                      <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
+                        <%= f.hidden_field :question_id %>
+                        <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
                       <% end %>
-                    <% end %>
 
-                    <% (1..5).each do |i| %>
-                      <% if i <= stars %>
-                        <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-                      <% else %>
-                        <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                      <% stars = 0 %>
+                      <% question.ratings.each do |r| %>
+                        <% if current_user.ratings.find_by(:id => r.id) %>
+                          <% stars = r.stars %>
+                          <% break %>
+                        <% end %>
                       <% end %>
-                    <% end %>
-                  </ul><br>
-                <% end %>
-              <% end %>
 
-              <%= link_to 'Vedi risposte', property_question_path(question) %>
-              <% if current_user %>
-                <% if current_user == question.user || current_user.admin %>
-                  <%= link_to 'Elimina', [question.property, question],
-                           method: :delete,
-                           data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
+                      <% (1..5).each do |i| %>
+                        <% if i <= stars %>
+                          <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                        <% else %>
+                          <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                        <% end %>
+                      <% end %>
+                    </ul><br>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </li>
+                <br>
+                <%= link_to 'Vedi risposte', property_question_path(question), :class => 'btn btn-default' %>
+                <% if current_user %>
+                  <% if current_user == question.user || current_user.admin %>
+                    <%= link_to 'Elimina', [question.property, question],
+                               method: :delete,
+                               data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
+                  <% end %>
+                <% end %>
+
+            </div>
+            </div>
           <% end %>
         </ul>
       <% end %>
