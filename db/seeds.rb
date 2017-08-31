@@ -12,7 +12,6 @@ user = User.new(
   :password => "SeCrEt",
   :password_confirmation => "SeCrEt",
   :username => "admin",
-  :name => "admin",
   :admin => "true"
 )
 #user.skip_confirmation!
