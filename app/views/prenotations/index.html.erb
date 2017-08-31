@@ -1,5 +1,8 @@
+<h3> Sto visualizzando le prenotazioni di <%= @property.title %></h3>
+
+
 <div class="page-header">
-  <%= link_to new_prenotation_path, class: 'btn btn-primary' do %>
+  <%= link_to  new_property_prenotation_path(@property), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-plus"></span>
     New Prenotation
   <% end %>
@@ -13,9 +16,7 @@
             <th>Name</th>
             <th>Start time</th>
             <th>End time</th>
-            <th></th>
-        <th></th>
-        <th></th>
+        <th>Opzioni</th>
       </tr>
     </thead>
 
@@ -25,9 +26,7 @@
                       <td><%= prenotation.name %></td>
                       <td><%= prenotation.start_time %></td>
                       <td><%= prenotation.end_time %></td>
-                    <td><%= link_to 'Show', prenotation %></td>
-          <td><%= link_to 'Edit', edit_prenotation_path(prenotation) %></td>
-          <td><%= link_to 'Destroy', prenotation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Elimina', [@property, prenotation], method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
         <% end %>
       <% end %>
     </tbody>

@@ -1,36 +1,29 @@
 class PrenotationsController < ApplicationController
-  before_action :set_prenotation, only: [:show, :edit, :update, :destroy], :authenticate_user!
+  before_action :set_prenotation, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /prenotations
   # GET /prenotations.json
   def index
-    @prenotations = Prenotation.all
-  end
-
-  # GET /prenotations/1
-  # GET /prenotations/1.json
-  def show
+    @property = Property.find(params[:property_id])
+    @prenotations = @property.prenotations
   end
 
   # GET /prenotations/new
   def new
+    @property = Property.find(params[:property_id])
     @prenotation = Prenotation.new
-    @property_id = params[:property_id]
-  end
-
-  # GET /prenotations/1/edit
-  def edit
   end
 
   # POST /prenotations
   # POST /prenotations.json
   def create
-    @property = Property.find(params[:prenotation][:property_id])
+    @property = Property.find(params[:property_id])
     @prenotation = @property.prenotations.create(prenotation_params)
 
     respond_to do |format|
       if @prenotation.save
-        format.html { redirect_to @prenotation, notice: 'Prenotation was successfully created.' }
+        format.html { redirect_to @property, notice: 'Prenotation was successfully created.' }
         format.json { render :show, status: :created, location: @prenotation }
       else
         format.html { render :new }
@@ -39,26 +32,13 @@ class PrenotationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /prenotations/1
-  # PATCH/PUT /prenotations/1.json
-  def update
-    respond_to do |format|
-      if @prenotation.update(prenotation_params)
-        format.html { redirect_to @prenotation, notice: 'Prenotation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @prenotation }
-      else
-        format.html { render :edit }
-        format.json { render json: @prenotation.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /prenotations/1
   # DELETE /prenotations/1.json
   def destroy
+    @property = Property.find(params[:property_id])
     @prenotation.destroy
     respond_to do |format|
-      format.html { redirect_to prenotations_url, notice: 'Prenotation was successfully destroyed.' }
+      format.html { redirect_to @property, notice: 'Prenotation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

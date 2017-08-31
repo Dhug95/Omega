@@ -136,12 +136,7 @@
   <% end %>
 
   <% if @property.user == current_user %>
-    <%= form_tag('/prenotations/new', method: :get) do %>
-
-      <%= hidden_field_tag(:property_id, @property.id) %>
-      <%= submit_tag("Modifica disponibilità", :class => 'btn btn-primary' )%>
-
-    <% end %>
+    <%= link_to "Modifica disponibilità", property_prenotations_path(@property), :class => 'btn btn-warning' %>
   <% else %>
     <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.title %></p>
   <% end %>
