@@ -61,22 +61,25 @@ class PropertiesController < ApplicationController
   end
 
   def new
+    @property = Property.new
   end
 
   def create
     @property = current_user.properties.build(property_params)
-    @property.save
-    redirect_to @property
+    if @property.save
+      redirect_to @property
+    else
+      render 'new'
+    end
   end
 
   def edit
     @property = Property.find(params[:id])
-
   end
 
   def update
     @property = Property.find(params[:id])
-    if(@property.update(property_params))
+    if @property.update(property_params)
         redirect_to @property
     else
         render 'edit'
