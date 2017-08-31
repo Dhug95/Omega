@@ -56,7 +56,7 @@
 </div>
 
 <% if @property.offer == nil %>
-<h3><p><b>Prezzo: </b><%= @property.price %>€</p></h3>
+<h3><p><b>Prezzo: <%= @property.price %>€</b></p></h3>
 <%else %>
 <h3><b><del><%= @property.price %>€</del></b> <font style="color:red"><b><%= @property.offer %>€</b></font></h3>
 <%end%>
@@ -89,8 +89,8 @@
 </p><hr>
 
 <% if current_user %>
-  <p><% if @property.user == current_user || @property.user == current_user.admin %>
-  	<%= link_to "Modifica", edit_property_path(@property), :class => 'btn btn-default' %>
+  <p><% if @property.user == current_user || current_user.admin %>
+  	<%= link_to "Modifica", edit_property_path(@property), :class => 'btn btn-warning' %>
 	  <%= link_to "Elimina", property_path(@property),
 		  	method: :delete,
 		          data: {confirm: 'Are you sure?'},
@@ -113,7 +113,7 @@
   <div class="row">
     <div class="col-sm-6">
       <p>
-        <strong>Proprietà nelle vicinanze:</strong>
+        <h4><b>Proprietà nelle vicinanze:</b></h4>
         <% for p in @property.nearbys(10) %>
         <li>
           <%= link_to p.title, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
@@ -132,7 +132,8 @@
 <hr>
 
 <p>
-  <h2>Disponibilità:</h2>
+  <h4><b>Disponibilità:</b></h4>
+  <br>
   <%= month_calendar events: @property.prenotations do |date, prenotations| %>
     <%= date.day %>
     <% prenotations.each do |prenotation| %>
@@ -146,7 +147,7 @@
     <%= form_tag('/prenotations/new', method: :get) do %>
 
       <%= hidden_field_tag(:property_id, @property.id) %>
-      <%= submit_tag("Modifica disponibilità") %>
+      <%= submit_tag("Modifica disponibilità", :class => 'btn btn-primary' )%>
 
     <% end %>
   <% else %>
@@ -162,7 +163,9 @@
   <div class="panel-body">
 
       <% if @property.reviews.first == nil %>
-        <h5> Non è ancora stata scritta alcuna recensione. </h5>
+      <div class="alert alert-warning" role="alert">
+        <h5> Non è ancora stata scritta alcuna recensione!</h5>
+      </div>
       <% else %>
         <% @property.reviews.each do |review| %>
           <div class="panel panel-default">
@@ -174,7 +177,7 @@
               <% elsif review.user.image.present? %>
                 <%= image_tag(image_path("default_user.jpg"), size: "40x40") %>
               <% else %>
-                <%= image_tag review.user.image %>
+                <%= image_tag(image_path("default_user.jpg"), size: "40x40") %>
               <% end %>
               <br>
               <b>Titolo: </b> <%= review.title %><br>
@@ -216,7 +219,9 @@
   <div class="panel-body" >
 
       <% if @property.questions.first == nil %>
-        <h5> Non è ancora stata fatta alcuna domanda. </h5><br>
+      <div class="alert alert-warning" role="alert">
+        <h5> Non è ancora stata fatta alcuna domanda!</h5>
+      </div>
       <% else %>
         <ul class='list_question'>
           <% @questions.each do |question| %>
@@ -269,11 +274,7 @@
       <% end %>
 
       <% if current_user && current_user != @property.user %>
-        <h3>Fai una domanda:</h3>
-        <%= form_for([@property, @property.questions.build]) do |f| %>
-          <p><%= f.text_area :body, :class => "form-control"%></p>
-          <p><%= f.submit "Invia", :class => 'btn btn-primary'%></p>
-        <% end %>
+        <%= link_to "Fai una domanda", new_question_path(:property => @property), :class => 'btn btn-primary' %>
       <% end %>
     </div>
 

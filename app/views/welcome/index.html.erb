@@ -64,7 +64,7 @@
         <% end %>
       <% end %>
     </ul></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-success' %></th></tr>
   </table>
 <% end %>
 
@@ -95,7 +95,7 @@
         <% end %>
       <% end %>
     </ul></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-success' %></th></tr>
   </table>
 <% end %>
 
@@ -112,7 +112,7 @@
     <% end %>
     <tr><th><b><%= p.title %></b></th></tr>
     <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-success' %></th></tr>
     <tr><th><ul class='rating'>
       <% (1..5).each do |i| %>
         <% if i <= p.valutation %>
@@ -151,7 +151,7 @@
         <% end %>
       <% end %>
     </ul></th></tr>
-    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-default' %></th></tr>
+    <tr><th><%= link_to "Vedi", property_path(p), :class => 'btn btn-success' %></th></tr>
   </table>
 <% end %>
 <br class='clear'>

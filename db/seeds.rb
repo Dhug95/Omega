@@ -12,6 +12,7 @@ user = User.new(
   :password => "SeCrEt",
   :password_confirmation => "SeCrEt",
   :username => "admin",
+  :avatar_file_name => "app/assets/images/default_user.jpg",
   :admin => "true"
 )
 #user.skip_confirmation!

@@ -31,4 +31,5 @@ Rails.application.routes.draw do
   resources :ratings
   resources :answer_ratings
   resources :reviews
+  resources :questions
 end
