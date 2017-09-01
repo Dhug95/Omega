@@ -8,7 +8,7 @@
       elem.addClass('on');
     }
   }
-  
+
   $(function() {
     $('.rating_star').click(function() {
       var form_id = $(this).attr('data-form-id');
@@ -60,18 +60,7 @@
             <%= form_for answer.answer_rating.last || answer.answer_rating.build, :html => {:id => "answer_#{answer.id}_rating" } do |f| %>
               <%= f.hidden_field :answer_id %>
             <% end %>
-
-<<<<<<< HEAD
-        <% answer.answer_rating.each do |r| %>
-          <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
-          <% if current_answer && current_answer.stars == 1 %>
-            <li class="rating_star on" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
-             &nbsp;&nbsp;<i>Clicca per rimuovere un voto</i>
-          <% else %>
-            <li class="rating_star" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
-            &nbsp;&nbsp;<i>Clicca per aggiungere un voto</i>
-          <% end %>
-=======
+            
             <% answer.answer_rating.each do |r| %>
               <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
               <% if current_answer && current_answer.stars == 1 %>
@@ -83,8 +72,8 @@
               <% end %>
             <% end %>
           </ul>
->>>>>>> 2dcef22b21803e668b6d480887fa91d66ce7610e
         <% end %>
+        
         <br>
         <% if current_user && (current_user == @question.user || current_user == answer.user || current_user.admin) %>
         <br>
