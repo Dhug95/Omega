@@ -4,6 +4,7 @@
   <h4><div class="alert alert-info" role="alert">Accesso effettuato tramite <b><%= current_user.provider %></b></div></h4>
 <% end %>
 
+<%# immagine %>
 <h2>Avatar: </h2>
 <% if current_user.provider == nil %>
   <%= image_tag current_user.avatar.url(:medium) %>
