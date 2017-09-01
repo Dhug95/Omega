@@ -45,4 +45,21 @@ RSpec.describe WelcomeController, :type => :controller do
       expect(response).to render_template(:results)
     end
   end
+
+  describe "GET profile" do
+    it "gives a response status 200" do
+      get :profile
+      expect(response.status).to eq(200)
+    end
+
+    it "shows an html page" do
+      get :index
+      expect(response.content_type).to eq "text/html"
+    end
+
+    it "renders the profile page" do
+      get :profile
+      expect(response).to render_template(:profile)
+    end
+  end
 end
