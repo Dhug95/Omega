@@ -4,7 +4,7 @@ class RatingsController < ApplicationController
       @rating = @question.ratings.create(rating_params)
       rating_num = @question.ratings.count();
       if rating_num > 0
-        val_media = @question.ratings.sum(:stars) / @question.ratings.count()
+        val_media = @question.ratings.sum(:stars) / rating_num
       else
         val_media = @rating.stars
       end

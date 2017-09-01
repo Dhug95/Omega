@@ -60,7 +60,7 @@
             <%= form_for answer.answer_rating.last || answer.answer_rating.build, :html => {:id => "answer_#{answer.id}_rating" } do |f| %>
               <%= f.hidden_field :answer_id %>
             <% end %>
-
+            
             <% answer.answer_rating.each do |r| %>
               <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
               <% if current_answer && current_answer.stars == 1 %>
@@ -73,6 +73,7 @@
             <% end %>
           </ul>
         <% end %>
+        
         <br>
         <% if current_user && (current_user == @question.user || current_user == answer.user || current_user.admin) %>
         <br>
