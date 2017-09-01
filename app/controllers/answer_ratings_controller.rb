@@ -10,21 +10,21 @@ class AnswerRatingsController < ApplicationController
     
   def update
     @answer = Answer.find(params[:answer_rating][:answer_id])
-    rating = AnswerRating.find(params[:id])
-    if rating.user_id != current_user.id
-      create
+    rating = AnswerRating.find_by(:id => params[:id])
+    if rating
+      destroy
     else
-      if rating.stars == 0
-        rating.update_attribute(:stars, 1)
-        valutation = @answer.valutation + 1
-      else
-        rating.update_attribute(:stars, 0)
-        valutation = @answer.valutation - 1
-      end
-      @answer.update_attribute(:valutation, valutation)
-      puts @answer.valutation
-      redirect_back(fallback_location: root_path)
+      create
     end
+  end
+  
+  def destroy
+    @answer = Answer.find(params[:answer_rating][:answer_id])
+    @rating = AnswerRating.find_by(:id => params[:id])
+    @rating.destroy
+    valutation = @answer.valutation - 1
+    @answer.update_attribute(:valutation, valutation)
+    redirect_back(fallback_location: root_path)
   end
   
   private

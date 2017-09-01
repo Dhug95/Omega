@@ -8,7 +8,7 @@
       elem.addClass('on');
     }
   }
-
+  
   $(function() {
     $('.rating_star').click(function() {
       var form_id = $(this).attr('data-form-id');
@@ -60,10 +60,10 @@
           <% current_answer = current_user.answer_rating.find_by(:id => r.id) %>
           <% if current_answer && current_answer.stars == 1 %>
             <li class="rating_star on" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
-             &nbsp;&nbsp;<i>Clicca per rimuovere un voto<i>
+             &nbsp;&nbsp;<i>Clicca per rimuovere un voto</i>
           <% else %>
             <li class="rating_star" data-answer-id = "<%= answer.id %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{answer.id}" %>"></li>
-            &nbsp;&nbsp;<i>Clicca per aggiungere un voto<i>
+            &nbsp;&nbsp;<i>Clicca per aggiungere un voto</i>
           <% end %>
         <% end %>
       </ul>
