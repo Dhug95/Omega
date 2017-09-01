@@ -15,7 +15,7 @@
 <%= form_tag("/welcome/results", method: :get) do %>
   <div class="input-group">
     <span class="input-group-addon" id="basic-addon1"> <%= label_tag(:city, "Inserisci la località:") %> </span>
-    <%= text_field_tag(:city, nil, required: true, :class => "form-control") %>
+    <%= text_field_tag(:city, nil, required: true, :class => "form-control", :placeholder => "Via o città") %>
   </div>
 
   <hr>
