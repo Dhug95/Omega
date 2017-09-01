@@ -69,8 +69,10 @@
 
 <p>
   <b>Categorie:</b>
-  <% @property.categories.each do |c| %>
-    <%= c %>
+  | <% @property.categories.each do |c| %>
+    <% if c != "" %>
+      <%= c %> |
+    <% end %>
   <% end %>
 </p>
 
@@ -78,7 +80,12 @@
 <%= @property.user.username %>
 
 (<%= link_to "Vedi altro dall'utente", summary_path(@property), method: :get %>)
-</p><hr>
+</p>
+
+<% if current_user != @property.user %>
+  <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.title, class: 'btn btn-info' %></p>
+<% end %>
+<hr>
 
 <% if current_user %>
   <p><% if @property.user == current_user || current_user.admin %>
@@ -88,6 +95,24 @@
 		          data: {confirm: 'Are you sure?'},
 			  :class => 'btn btn-danger' %>
   <% end %></p>
+<% end %>
+
+<% if current_user && current_user != @property.user %>
+  <% if current_user.followings.exists?(@property.user.id) %>
+    <%= link_to "Unfollow utente", unfollow_path(@property), method: :post, class: 'btn btn-warning' %><p/>
+  <% else %>
+    <%= link_to "Follow utente", follow_path(@property), method: :post, class: 'btn btn-default' %><p/>
+  <% end %>
+<% end %>
+
+<br>
+
+<% if current_user && current_user != @property.user %>
+	<% if current_user.favourites.exists?(@property.id) %>
+		<%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post, class: 'btn btn-warning' %><p/>
+	<% else %>
+		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post, class: 'btn btn-default' %><p/>
+	<% end %>
 <% end %>
 
 <p><a class="twitter-share-button"
@@ -104,18 +129,20 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-6">
+      <h4>Mappa:</h4>
       <p>
-        <h4><b>Proprietà nelle vicinanze:</b></h4>
+      <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x350&maptype=roadmap
+      &markers=color:red%8Clabel:S%7C#{@property.latitude},#{@property.longitude}
+      &key=AIzaSyB4bGTS4lIxDUcOJC8YZM3eAuyg-4JYPfQ "%>
+      </p>
+      <hr>
+      <p>
+        <h4>Proprietà nelle vicinanze:</h4>
         <% for p in @property.nearbys(10) %>
         <li>
           <%= link_to p.title, p %>, in  <%= p.city %> (<%= p.distance.round(2)%> km)
         </li>
         <% end %>
-      </p>
-      <p>
-      <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=500x350&maptype=roadmap
-      &markers=color:red%8Clabel:S%7C#{@property.latitude},#{@property.longitude}
-      &key=AIzaSyB4bGTS4lIxDUcOJC8YZM3eAuyg-4JYPfQ "%>
       </p>
     </div>
   </div>
@@ -135,10 +162,8 @@
     <% end %>
   <% end %>
 
-  <% if @property.user == current_user %>
+  <% if current_user && (@property.user == current_user || current_user.admin) %>
     <%= link_to "Modifica disponibilità", property_prenotations_path(@property), :class => 'btn btn-warning' %>
-  <% else %>
-    <p><%= mail_to @property.user.email, "Vuoi prenotare? Contatta l'utente", subject: @property.title %></p>
   <% end %>
 </p><hr>
 
@@ -160,7 +185,7 @@
             <p>
               <h4><%= review.user.username %></h4>
               <% if review.user.provider == nil %>
-                <%= image_tag review.user.avatar.url(:medium) %>
+                <%= image_tag review.user.avatar.url(:thumb) %>
               <% else %>
                 <%= image_tag review.user.image %>
               <% end %>              <br>
@@ -178,7 +203,7 @@
                 <% end %>
               </ul>
             </p><br>
-            <% if current_user == review.user || current_user.admin %>
+            <% if current_user && (current_user == review.user || current_user.admin) %>
                 <%= link_to 'Elimina', [review.property, review],
                       method: :delete,
                       data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
@@ -203,56 +228,61 @@
   <div class="panel-body" >
 
       <% if @property.questions.first == nil %>
-      <div class="alert alert-warning" role="alert">
-        <h5> Non è ancora stata fatta alcuna domanda!</h5>
-      </div>
+        <div class="alert alert-warning" role="alert">
+          <h5> Non è ancora stata fatta alcuna domanda!</h5>
+        </div>
       <% else %>
         <ul class='list_question'>
           <% @questions.each do |question| %>
-            <li>
-              <%= question.user.username %>
-              <br>
-              <strong>-</strong><%= question.body %><br>
+            <div class="panel panel-default">
+            <div class="panel-body">
 
-              Valutazione media:
-              <%= question.valutation %>
-              <% if current_user %>
-                <% if question.user != current_user %>
-                  <ul class='rating'>
-                    <% form_id = "question_#{question.id}_rating" %>
-                    <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
-                      <%= f.hidden_field :question_id %>
-                      <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
-                    <% end %>
-
-                    <% stars = 0 %>
-                    <% question.ratings.each do |r| %>
-                      <% if current_user.ratings.find_by(:id => r.id) %>
-                        <% stars = r.stars %>
-                        <% break %>
+                <b><%= question.user.username %></b>
+                <br>
+                <%= question.body %><br>
+                <br>
+                Punteggio:
+                <%= question.valutation %>
+                <br>
+                <% if current_user %>
+                  <% if question.user != current_user %>
+                    <ul class='rating'>
+                      <% form_id = "question_#{question.id}_rating" %>
+                      <%= form_for question.ratings.last || question.ratings.build, :html => {:id => "question_#{question.id}_rating" } do |f| %>
+                        <%= f.hidden_field :question_id %>
+                        <%= f.hidden_field :stars, :id => "#{form_id}_stars" %>
                       <% end %>
-                    <% end %>
 
-                    <% (1..5).each do |i| %>
-                      <% if i <= stars %>
-                        <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
-                      <% else %>
-                        <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                      <% stars = 0 %>
+                      <% question.ratings.each do |r| %>
+                        <% if current_user.ratings.find_by(:id => r.id) %>
+                          <% stars = r.stars %>
+                          <% break %>
+                        <% end %>
                       <% end %>
-                    <% end %>
-                  </ul><br>
-                <% end %>
-              <% end %>
 
-              <%= link_to 'Vedi risposte', property_question_path(question) %>
-              <% if current_user %>
-                <% if current_user == question.user || current_user.admin %>
-                  <%= link_to 'Elimina', [question.property, question],
-                           method: :delete,
-                           data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
+                      <% (1..5).each do |i| %>
+                        <% if i <= stars %>
+                          <li class="rating_star on" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                        <% else %>
+                          <li class="rating_star" data-stars="<%= i %>" data-form-id = "<%= form_id %>" id= "<%= "#{form_id}_#{i}" %>"></li>
+                        <% end %>
+                      <% end %>
+                    </ul><br>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </li>
+                <br>
+                <%= link_to 'Vedi risposte', property_question_path(question), :class => 'btn btn-default' %>
+                <% if current_user %>
+                  <% if current_user == question.user || current_user.admin %>
+                    <%= link_to 'Elimina', [question.property, question],
+                               method: :delete,
+                               data: { confirm: 'Sei sicuro?' }, :class => 'btn btn-danger' %>
+                  <% end %>
+                <% end %>
+
+            </div>
+            </div>
           <% end %>
         </ul>
       <% end %>
@@ -272,26 +302,15 @@
   <% @correlated.each do |p| %>
     <table class='correlated'>
       <% if p.id != @property.id %>
-        <tr><th><%= image_tag(p.img1.url,size: "90x80") %></th></tr>
-        <tr><th><b><%= p.title %></b></th></tr>
-        <tr><th><%= p.price %></th></tr>
-        <tr><th><%= link_to "Vedi", property_path(p) %></th></tr>
+        <tr><th><%= image_tag(p.img1.url(:thumb), size: "90x80") %></th></tr>
+        <tr><th><b>Titolo: <%= p.title %></b></th></tr>
+        <% if p.offer == nil %>
+          <tr><th><%= p.price %>€</th></tr>
+        <% else %>
+          <tr><th><del><%= p.price %>€</del> <font color="red"> <%= p.offer %>€</font></th></tr>
+        <% end %>
+        <tr><th><%= link_to "Vedi", property_path(p), class: 'btn btn-primary' %></th></tr>
       <% end %>
     </table>
   <% end %>
 <br class='clear'>
-
-<% if current_user && current_user != @property.user %>
-  <hr><h3>Link utili:</h3>
-	<% if current_user.favourites.exists?(@property.id) %>
-		<%= link_to "Rimuovi dai preferiti", remove_from_f_property_path(@property), method: :post %><p/>
-	<% else %>
-		<%= link_to "Aggiungi ai preferiti", add_to_f_property_path(@property), method: :post %><p/>
-	<% end %>
-  
-  <% if current_user.followings.exists?(@property.user.id) %>
-	  <%= link_to "Unfollow utente", unfollow_path(@property), method: :post %><p/>
-  <% else %>
-  	<%= link_to "Follow utente", follow_path(@property), method: :post %><p/>
-	<% end %>
-<% end %>

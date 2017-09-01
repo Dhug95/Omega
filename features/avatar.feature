@@ -9,8 +9,8 @@ Scenario: Add an avatar
   And I am on my profile page
   When I follow "Modifica info"
   And I attach the file "/Users/Francesco/Pictures/Napoli/2017-07-30 00.32.27.jpg" to "Avatar"
-  And I fill in "Current password" with "123456"
-  And I press "Update"
+  And I fill in "user[current_password]" with "123456"
+  And I press "Aggiorna"
   Then I should be on the home page
   And I should see "Profilo"
   When I follow "Profilo"

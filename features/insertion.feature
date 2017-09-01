@@ -12,7 +12,7 @@ Scenario: Create insertion
   And I fill in "Descrizione" with "Molto grande"
   And I fill in "Prezzo" with "150"
   And I fill in "address_city" with "Rome, Italy"
-  And I press "Save Property"
+  And I press "Crea Inserzione"
   Then I should see "Casa grande"
   And I should see "Molto grande"
   And I should see "150"

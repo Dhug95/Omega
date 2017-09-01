@@ -20,21 +20,21 @@
 
   <p class="field">
     <%= p.label :titolo %><br>
-    <%= p.text_field :title, :size=> 30 %><br>
+    <%= p.text_field :title, id: :Titolo,:size=> 30 %><br>
   </p>
 
   <p >
     <%= p.label :descrizione %><br>
-    <%= p.text_area :description, :size=> 30 %>
+    <%= p.text_area :description, id: :Descrizione, :size=> 30 %>
   </p>
 
   <p class="field">
     <%= p.label :prezzo %><br>
-    <%= p.text_field :price, :size=> 30  %><br>
+    <%= p.text_field :price, id: :Prezzo, :size=> 30  %><br>
   </p>
 
   <p class="field" >
-    <%= p.label :city %><br>
+    <%= p.label :città %><br>
     <%= p.text_field :city, id: :address_city, :size=> 30, :placeholder=> "Inserisci la città" %><br>
   </p>
 
@@ -56,27 +56,24 @@
 
   <hr>
   <h3> Sezione categorie </h3>
-  <p>
-    <%= p.label "Tipologia di acquisto" %><br>
-    <%= p.select :categories, [ ["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
-  </p>
+  <table class='correlated'>
+    <tr><th><%= p.label("Tipologia di acquisto") %></th></tr>
+    <tr><th><%= p.select :categories, [ ["Affitto", "Affitto"], ["Prenotazione", "Prenotazione"] ], {:include_blank => false}, {:multiple => true}%></th></tr>
+  </table>
+  <table class='correlated'>
+    <tr><th><%= p.label("Tipologia di proprietà") %></th></tr>
+    <tr><th><%= p.select :categories, [ ["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"] ], {:include_blank => false}, {:multiple => true}%></th></tr>
+  </table>
+  <table class='correlated'>
+    <tr><th><%= p.label("Preferenza fascia oraria") %></th></tr>
+    <tr><th><%= p.select :categories, [ ["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"] ], {:include_blank => false}, {:multiple => true}%></th></tr>
+  </table>
+  <table class='correlated'>
+    <tr><th><%= p.label("Preferenza stanza") %></th></tr>
+    <tr><th><%= p.select :categories, [ ["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"] ], {:include_blank => false}, {:multiple => true}%></th></tr>
+  </table>
 
-  <p>
-    <%= p.label "Tipologia di proprietà" %><br>
-    <%= p.select :categories, [ ["Abitazione", "Abitazione"], ["B&B", "B&B"], ["Casa Vacanza", "Casa Vacanza"], ["Attività Commerciale", "Attività Commerciale"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
-  </p>
-
-  <p>
-    <%= p.label "Preferenza fascia oraria" %><br>
-    <%= p.select :categories, [ ["Mattina", "Mattina"], ["Pomeriggio", "Pomeriggio"], ["Sera", "Sera"], ["Più Giorni", "Più Giorni"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
-  </p>
-
-  <p>
-    <%= p.label "Preferenza stanza" %><br>
-    <%= p.select :categories, [ ["Intera Casa", "Intera Casa"], ["Stanza Condivisa", "Stanza Condivisa"], ["Stanza Privata", "Stanza Privata"] ], {:include_blank => "Seleziona una o più elementi"}, {:multiple => true}%>
-  </p>
-
-  <hr>
+  <br><br><br><br><br><br><hr>
   <p>
     <%= p.submit "Crea Inserzione", :class => "btn btn-primary" %>
   </p>

@@ -28,7 +28,7 @@ module NavigationHelpers
     when /^my insertions page$/
       '/properties'
 
-    when /^my last insertion page$/
+    when /^the last insertion page$/
       property_path(Property.last)
 
     when /^conversations page$/

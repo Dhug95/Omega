@@ -8,6 +8,6 @@ Scenario: See the properties
   When I log in
   And I create an insertion "Casa bella"
   And I create an insertion "Caseificio di bufala"
-  When I am on my last insertion page
+  When I am on the last insertion page
   Then I should see "Proprietà Correlate:"
   And I should see "Casa bella"

@@ -10,9 +10,9 @@ Scenario: Sending a message
   And I am on conversations page
   And I follow "Scrivi un Nuovo Messaggio"
   And I select "MarioBiondi" from "user_id"
-  And I fill in "Soggetto" with "Ciao bello"
+  And I fill in "Oggetto" with "Ciao bello"
   And I fill in "Corpo del messaggio" with "Come stai?"
-  When I press "Save changes"
+  When I press "Invia messaggio"
   Then I should see "Dhug95 ha scritto:"
   And I should see "Ciao bello"
   And I should see "Come stai?"

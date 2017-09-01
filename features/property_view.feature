@@ -9,12 +9,12 @@ Scenario: Find a Property
   When I create an insertion "Casa grande"
   Given I am on the home page
   And I fill in "Inserisci la località:" with "Rome, Italy"
-  When I press "Search"
+  When I press "Cerca"
   Then I should see "Casa grande"
 
 Scenario: Not find a property
   Given I am on the home page
   When I fill in "Inserisci la località:" with "Toblerone"
-  And I press "Search"
+  And I press "Cerca"
   Then I should not see "Toblerone"
   And I should see "Nessun risultato."

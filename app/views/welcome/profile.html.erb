@@ -6,20 +6,24 @@
 
 <h2>Avatar: </h2>
 <% if current_user.provider == nil %>
-  <%= image_tag @me.avatar.url(:medium) %>
+  <%= image_tag current_user.avatar.url(:medium) %>
 <% else %>
   <%= image_tag current_user.image %>
 <% end %>
 
 <h2>Email: </h2>
-<%= @me.email %>
+<%= current_user.email %>
 
 <h2>Username: </h2>
-<%= @me.username %>
+<%= current_user.username %>
 
 <h2>Creato: </h2>
-<%= @me.created_at %><p/>
+<%= current_user.created_at %><p/>
 
-<hr>
+  <hr>
 
-<%= link_to "Modifica info", edit_user_registration_path, :class => 'btn btn-warning' %>
+  <% if current_user.provider %>
+    <div class="alert alert-danger" role="alert">Impossibile modificare informazioni: accesso con Facebook.</div>
+  <% else %>
+    <%= link_to "Modifica info", edit_user_registration_path, :class => 'btn btn-warning' %>
+  <% end %>

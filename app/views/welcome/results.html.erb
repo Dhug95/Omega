@@ -8,7 +8,7 @@
 
   <%= form_tag('/welcome/results', method: :get) do %>
 
-    <%= select_tag "ordine", options_for_select([['Titolo', 'titolo'], ['Prezzo', 'prezzo'], ['Più recenti', 'created_at DESC']]), include_blank: true %>
+    <%= select_tag "ordine", options_for_select([['Titolo', 'title'], ['Prezzo', 'price'], ['Più recenti', 'created_at DESC']]), include_blank: true %>
     <%= hidden_field_tag(:city, @city) %>
     <%= submit_tag("Ordina") %>
 

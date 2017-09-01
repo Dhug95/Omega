@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:show, :summary]
 
   def index
     @properties = current_user.properties.page params[:page]

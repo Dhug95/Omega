@@ -8,7 +8,7 @@ Scenario: See user's properties
   When I log in
   And I create an insertion "Bello figo"
   And I create an insertion "Casa Raimondo"
-  When I am on my last insertion page
+  When I am on the last insertion page
   And I follow "Vedi altro dall'utente"
   Then I should see "Inserzioni dell'utente: Dhug95"
   And I should see "Bello figo"

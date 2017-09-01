@@ -5,9 +5,13 @@ Feature: Questions
 
 Scenario: Make a question
   Given I am a registered user
-  When I log in
-  And I create an insertion "Casa bella"
-  When I am on my last insertion page
+  And there's another user
+  When he logs in
+  And he creates an insertion "Casa bella"
+  When he logs out
+  And I log in
+  When I am on the last insertion page
+  And I follow "Fai una domanda"
   And I fill in "question_body" with "Quanto è grande?"
   And I press "Invia"
   Then I should see "Dhug95"
