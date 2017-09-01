@@ -8,6 +8,6 @@ Scenario: Show the properties
   When I log in
   And I create an insertion "Casa grande"
   And I create an insertion "Casa molto grande"
-  When I am on my last insertion page
+  When I am on the last insertion page
   Then I should see "Proprietà nelle vicinanze"
   And I should see "Casa grande"

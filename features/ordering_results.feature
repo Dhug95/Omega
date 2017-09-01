@@ -10,7 +10,7 @@ Scenario: Order results
   And I create an insertion "Casa bella"
   When I am on the home page
   And I fill in "Inserisci la località:" with "Rome, Italy"
-  When I press "Search"
+  When I press "Cerca"
   Then I should see "Casa grande"
   And I should see "Casa bella"
   When I select "Più recenti" from "ordine"

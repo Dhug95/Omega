@@ -270,7 +270,7 @@ When /^I log in$/ do
     Given I am on the login page
     When I fill in "Email" with "dabbraccio.francesco@gmail.com"
     And I fill in "Password" with "123456"
-    And I press "Log in"
+    And I press "Login"
     Then I should be on the home page
     And I should see "Esci"
   }
@@ -284,7 +284,7 @@ When /^I create an insertion (.*)$/ do |title|
     And I fill in "Descrizione" with "Molto grande"
     And I fill in "Prezzo" with "150"
     And I fill in "address_city" with "Rome, Italy"
-    And I press "Save Property"
+    And I press "Crea Inserzione"
     Then I should see #{title}
     And I should see "Molto grande"
     And I should see "150"
@@ -299,7 +299,7 @@ end
 Then /^I should see "([^"]*)" first$/ do |arg1|
   @criteria = "created_at DESC"
   @properties = Property.where(:city => "Rome, Italy").order(@criteria)
-  expect(@properties.first.titolo).to eq(arg1)
+  expect(@properties.first.title).to eq(arg1)
 end
 
 Then /^my property has GPS coordinates$/ do
@@ -320,7 +320,7 @@ Given /^he logs in$/ do
     Given I am on the login page
     When I fill in "Email" with "fmeater@gmail.com"
     And I fill in "Password" with "123456"
-    And I press "Log in"
+    And I press "Login"
     Then I should be on the home page
     And I should see "Esci"
   }
@@ -334,7 +334,7 @@ When /^he creates an insertion (.*)$/ do |title|
     And I fill in "Descrizione" with "Molto grande"
     And I fill in "Prezzo" with "150"
     And I fill in "address_city" with "Rome, Italy"
-    And I press "Save Property"
+    And I press "Crea Inserzione"
     Then I should see #{title}
     And I should see "Molto grande"
     And I should see "150"

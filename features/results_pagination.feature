@@ -6,7 +6,7 @@ Feature: Results pagination
 Scenario: Show the pages
   Given I am a registered user
   When I log in
-  And I create an insertion "Casa"
+  And I create an insertion "Casa piccola"
   And I create an insertion "Casa grande"
   And I create an insertion "Casa molto grande"
   And I create an insertion "Casa davvero molto grande"

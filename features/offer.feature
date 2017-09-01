@@ -7,10 +7,10 @@ Scenario: Show properties in offering
   Given I am a registered user
   When I log in
   And I create an insertion "Casa costosa"
-  Given I am on my last insertion page
+  Given I am on the last insertion page
   When I follow "Modifica"
   And I fill in "property_offer" with "18"
-  And I press "Save Property"
+  And I press "Modifica"
   When I am on the home page
   Then I should see "Proprietà in offerta:"
   And I should see "Casa costosa"
