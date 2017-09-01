@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rspec-rails'
 # Pagination system
 gem 'kaminari'
 # Paperclip for images
@@ -61,6 +60,9 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'selenium-webdriver'
   gem 'web-console', '>= 3.3.0'
+  # Rspec-rails
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
